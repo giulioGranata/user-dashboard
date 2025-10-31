@@ -1,0 +1,56 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: center;
+  text-align: center;
+}
+
+.avatar {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 16px 36px rgba(59, 130, 246, 0.35);
+}
+
+.name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.metaList {
+  width: 100%;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.metaItem {
+  background: rgba(30, 41, 59, 0.85);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.metaLabel {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.75);
+}
+
+.metaValue {
+  color: #e2e8f0;
+  font-weight: 500;
+}
+
+.placeholder {
+  color: rgba(226, 232, 240, 0.7);
+  margin: 2rem 0;
+}
