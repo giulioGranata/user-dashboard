@@ -1,90 +1,78 @@
 import { useEffect, useState } from 'react';
 import { Spinner } from '../../../components/users/Spinner';
-import { UserDetailPanel } from './UserDetailPanel';
-import { UserFilters } from './UserFilters';
-import { UserList } from './UserList';
 import { useUserFilters } from '../hooks/useUserFilters';
 import { useUsers } from '../hooks/useUsers';
 import type { UserSummary } from '../types/user';
 import styles from './UserDashboard.module.css';
+import { UserDetailModal } from './UserDetailModal';
+import { UserFilters } from './UserFilters';
+import { UserList } from './UserList';
 
 export function UserDashboard() {
   const { data: users = [], isLoading, isError, refetch } = useUsers();
   const { filters, filteredUsers, setRole, setSearch } = useUserFilters(users);
   const [selectedUser, setSelectedUser] = useState<UserSummary | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    if (isLoading) {
+    if (!selectedUser) {
       return;
     }
 
-    if (filteredUsers.length === 0) {
+    const stillVisible = filteredUsers.some((user) => user.id === selectedUser.id);
+
+    if (!stillVisible) {
       setSelectedUser(null);
-      return;
+      setIsModalOpen(false);
     }
-
-    setSelectedUser((current) => {
-      if (current && filteredUsers.some((user) => user.id === current.id)) {
-        return current;
-      }
-
-      return filteredUsers[0];
-    });
-  }, [filteredUsers, isLoading]);
+  }, [filteredUsers, selectedUser]);
 
   const handleSelectUser = (user: UserSummary) => {
     setSelectedUser(user);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
-    <div className={styles.dashboard}>
-      <section className={styles.panel} aria-labelledby="user-filters">
-        <h2 id="user-filters" className={styles.sectionTitle}>
-          Filters
-        </h2>
-        <UserFilters
-          filters={filters}
-          onSearchChange={setSearch}
-          onRoleChange={setRole}
-          total={filteredUsers.length}
+    <section className={styles.dashboard} aria-labelledby="user-directory">
+      <h2 id="user-directory" className={styles.sectionTitle}>
+        Team directory
+      </h2>
+      <UserFilters
+        filters={filters}
+        onSearchChange={setSearch}
+        onRoleChange={setRole}
+        total={filteredUsers.length}
+      />
+      {isLoading && <Spinner label="Loading users" />}
+      {isError && (
+        <div role="alert" className={styles.emptyState}>
+          <h3>We could not load the users</h3>
+          <p>Please check your connection and try again.</p>
+          <button type="button" onClick={() => refetch()}>
+            Retry
+          </button>
+        </div>
+      )}
+      {filteredUsers.length === 0 && !isLoading ? (
+        <div className={styles.emptyState}>
+          <h3>No users match your filters</h3>
+          <p>Try updating the search term or selecting a different role.</p>
+        </div>
+      ) : (
+        <UserList
+          users={filteredUsers}
+          isLoading={isLoading}
+          selectedUserId={selectedUser?.id}
+          onSelectUser={handleSelectUser}
         />
-        {isLoading && <Spinner label="Loading users" />}
-        {isError && (
-          <div role="alert" className={styles.emptyState}>
-            <h3>We could not load the users</h3>
-            <p>Please check your connection and try again.</p>
-            <button type="button" onClick={() => refetch()}>
-              Retry
-            </button>
-          </div>
-        )}
-      </section>
-
-      <section className={styles.panel} aria-labelledby="user-list">
-        <h2 id="user-list" className={styles.sectionTitle}>
-          Team members
-        </h2>
-        {filteredUsers.length === 0 && !isLoading ? (
-          <div className={styles.emptyState}>
-            <h3>No users match your filters</h3>
-            <p>Try updating the search term or selecting a different role.</p>
-          </div>
-        ) : (
-          <UserList
-            users={filteredUsers}
-            isLoading={isLoading}
-            selectedUserId={selectedUser?.id}
-            onSelectUser={handleSelectUser}
-          />
-        )}
-      </section>
-
-      <section className={styles.panel} aria-labelledby="user-detail">
-        <h2 id="user-detail" className={styles.sectionTitle}>
-          Profile
-        </h2>
-        <UserDetailPanel user={selectedUser} isLoading={isLoading} />
-      </section>
-    </div>
+      )}
+      {selectedUser && isModalOpen && (
+        <UserDetailModal user={selectedUser} onClose={handleCloseModal} />
+      )}
+    </section>
   );
 }

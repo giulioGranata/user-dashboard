@@ -12,6 +12,7 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "noFallthroughCasesInSwitch": true,
+    "jsx": "react-jsx",
     "baseUrl": "./src",
     "types": ["vitest/globals", "vite/client"]
   },

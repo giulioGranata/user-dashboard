@@ -33,6 +33,9 @@ export function UserListItem({ user, isActive, onSelect, disabled }: UserListIte
         </div>
         <span className={styles.meta}>{user.email}</span>
       </div>
+      <span className={styles.cta} aria-hidden="true">
+        View profile
+      </span>
     </button>
   );
 }

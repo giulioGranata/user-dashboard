@@ -1,0 +1,7 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import clsx from 'clsx';
+import styles from './UserFilters.module.css';
+const ROLES = ['all', 'admin', 'manager', 'editor', 'viewer'];
+export function UserFilters({ filters, onSearchChange, onRoleChange, total }) {
+    return (_jsxs("div", { className: styles.filters, children: [_jsxs("label", { className: styles.searchField, children: [_jsx("span", { className: "visuallyHidden", children: "Search by name" }), _jsx("svg", { xmlns: "http://www.w3.org/2000/svg", width: "18", height: "18", viewBox: "0 0 24 24", "aria-hidden": true, children: _jsx("path", { fill: "currentColor", d: "M10 2a8 8 0 1 1 4.9 14.32l4.39 4.39l-1.42 1.42l-4.39-4.39A8 8 0 0 1 10 2m0 2a6 6 0 1 0 0 12a6 6 0 0 0 0-12" }) }), _jsx("input", { type: "search", name: "search", placeholder: "Search teammates", value: filters.search, onChange: (event) => onSearchChange(event.target.value) })] }), _jsx("div", { className: styles.roles, role: "group", "aria-label": "Filter by role", children: ROLES.map((role) => (_jsx("button", { type: "button", className: clsx(styles.roleButton, role === filters.role && styles.roleButtonActive), onClick: () => onRoleChange(role), "aria-pressed": filters.role === role, children: role === 'all' ? 'All roles' : role.charAt(0).toUpperCase() + role.slice(1) }, role))) }), _jsxs("span", { className: styles.meta, "aria-live": "polite", children: ["Showing ", _jsx("strong", { children: total }), " ", total === 1 ? 'person' : 'people'] })] }));
+}

@@ -8,6 +8,7 @@
   border: 1px solid transparent;
   cursor: pointer;
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
 }
 
 .item:hover,
@@ -33,6 +34,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
+  flex: 1;
 }
 
 .name {
@@ -66,4 +68,13 @@
 
 .statusOut {
   color: #f97316;
+}
+
+.cta {
+  margin-left: auto;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(129, 140, 248, 0.9);
 }
