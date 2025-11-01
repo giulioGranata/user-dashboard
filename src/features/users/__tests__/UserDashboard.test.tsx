@@ -41,7 +41,14 @@ const mockUsers = [
 ];
 
 function setupAxios(users = mockUsers) {
-  mockedAxios.get = vi.fn().mockResolvedValue({ data: { users } });
+  mockedAxios.get = vi.fn().mockResolvedValue({
+    data: {
+      users,
+      total: users.length,
+      skip: 0,
+      limit: 20
+    }
+  });
 }
 
 function setupUserService(users = mockUsers) {
@@ -56,7 +63,12 @@ function setupUserService(users = mockUsers) {
     location: 'Remote',
   }));
 
-  vi.mocked(userService.fetchUsers).mockResolvedValue(normalizedUsers);
+  vi.mocked(userService.fetchUsers).mockResolvedValue({
+    users: normalizedUsers,
+    total: normalizedUsers.length,
+    skip: 0,
+    limit: 20
+  });
 }
 
 describe('UserDashboard', () => {
@@ -109,15 +121,20 @@ describe('UserDashboard', () => {
     const searchBox = screen.getByPlaceholderText(/search users/i);
     fireEvent.change(searchBox, { target: { value: 'Alan' } });
 
-    expect(
-      screen.getByRole('button', { name: /view details for alan turing/i }),
-    ).toBeInTheDocument();
-    expect(
-      screen.queryByRole('button', { name: /view details for ada lovelace/i }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole('button', { name: /view details for grace hopper/i }),
-    ).not.toBeInTheDocument();
+    await waitFor(
+      () => {
+        expect(
+          screen.getByRole('button', { name: /view details for alan turing/i }),
+        ).toBeInTheDocument();
+        expect(
+          screen.queryByRole('button', { name: /view details for ada lovelace/i }),
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByRole('button', { name: /view details for grace hopper/i }),
+        ).not.toBeInTheDocument();
+      },
+      { timeout: 500 }
+    );
   });
 
   it('shows empty state when no users match filters', async () => {
@@ -129,7 +146,12 @@ describe('UserDashboard', () => {
       target: { value: 'zzz' },
     });
 
-    expect(screen.getByText(/no users match your filters/i)).toBeInTheDocument();
+    await waitFor(
+      () => {
+        expect(screen.getByText(/no users match your filters/i)).toBeInTheDocument();
+      },
+      { timeout: 500 }
+    );
   });
 
   it('shows loading state while fetching users', () => {
@@ -158,21 +180,26 @@ describe('UserDashboard', () => {
   });
 
   it('retries fetch when retry button is clicked', async () => {
+    const normalizedUsers = mockUsers.map((user) => ({
+      id: user.id,
+      fullName: `${user.firstName} ${user.lastName}`.trim(),
+      email: user.email,
+      role: user.role as 'admin' | 'manager' | 'viewer',
+      status: 'Active' as const,
+      avatarUrl:
+        user.image || `https://api.dicebear.com/7.x/initials/svg?seed=${user.firstName}`,
+      phone: 'N/A',
+      location: 'Remote',
+    }));
+
     vi.mocked(userService.fetchUsers)
       .mockRejectedValueOnce(new Error('Network error'))
-      .mockResolvedValueOnce(
-        mockUsers.map((user) => ({
-          id: user.id,
-          fullName: `${user.firstName} ${user.lastName}`.trim(),
-          email: user.email,
-          role: user.role as 'admin' | 'manager' | 'viewer',
-          status: 'Active' as const,
-          avatarUrl:
-            user.image || `https://api.dicebear.com/7.x/initials/svg?seed=${user.firstName}`,
-          phone: 'N/A',
-          location: 'Remote',
-        })),
-      );
+      .mockResolvedValueOnce({
+        users: normalizedUsers,
+        total: normalizedUsers.length,
+        skip: 0,
+        limit: 20
+      });
 
     renderWithProviders(<UserDashboard />);
 

@@ -10,7 +10,15 @@ import { UserFilters } from './UserFilters';
 import { UserList } from './UserList';
 
 export function UserDashboard() {
-  const { data: users = [], isLoading, isError, refetch } = useUsers();
+  const {
+    data: users = [],
+    isLoading,
+    isError,
+    refetch,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage
+  } = useUsers();
   const { filters, filteredUsers, setRole, setSearch } = useUserFilters(users);
   const [selectedUser, setSelectedUser] = useState<UserSummary | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -82,9 +90,11 @@ export function UserDashboard() {
       {!isLoading && !isError && filteredUsers.length > 0 && (
         <UserList
           users={filteredUsers}
-          isLoading={false}
+          isLoading={isFetchingNextPage}
           selectedUserId={selectedUser?.id}
           onSelectUser={handleSelectUser}
+          hasNextPage={hasNextPage}
+          onLoadMore={fetchNextPage}
         />
       )}
       {selectedUser && isModalOpen && (
