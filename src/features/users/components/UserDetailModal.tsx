@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { CloseIcon } from '../../../components/icons';
 import { UserDetailPanel } from './UserDetailPanel';
 import type { UserSummary } from '../types/user';
 import styles from './UserDetailModal.module.css';
@@ -101,7 +102,7 @@ export function UserDetailModal({ user, onClose }: UserDetailModalProps) {
             onClick={onClose}
             aria-label="Close user details"
           >
-            <span aria-hidden="true">✕</span>
+            <CloseIcon width={20} height={20} />
             <span className="visuallyHidden">Close</span>
           </button>
         </div>

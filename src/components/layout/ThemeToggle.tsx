@@ -1,3 +1,4 @@
+import { MoonIcon, SunIcon } from '../icons';
 import { useTheme } from '../../hooks/useTheme';
 import styles from './ThemeToggle.module.css';
 
@@ -13,7 +14,7 @@ export function ThemeToggle() {
       title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
     >
       <span className={styles.icon} aria-hidden="true">
-        {theme === 'light' ? '🌙' : '☀️'}
+        {theme === 'light' ? <MoonIcon width={20} height={20} /> : <SunIcon width={20} height={20} />}
       </span>
       <span className="visuallyHidden">
         {theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}

@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { SearchIcon } from '../../../components/icons';
 import type { UserFiltersState } from '../hooks/useUserFilters';
 import styles from './UserFilters.module.css';
 
@@ -16,18 +17,7 @@ export function UserFilters({ filters, onSearchChange, onRoleChange, total }: Us
     <div className={styles.filters}>
       <label className={styles.searchField}>
         <span className="visuallyHidden">Search by name</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          aria-hidden
-        >
-          <path
-            fill="currentColor"
-            d="M10 2a8 8 0 1 1 4.9 14.32l4.39 4.39l-1.42 1.42l-4.39-4.39A8 8 0 0 1 10 2m0 2a6 6 0 1 0 0 12a6 6 0 0 0 0-12"
-          />
-        </svg>
+        <SearchIcon />
         <input
           type="search"
           name="search"

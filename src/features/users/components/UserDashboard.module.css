@@ -69,8 +69,15 @@
 }
 
 .errorIcon {
-  font-size: 3rem;
   margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(148, 163, 184, 0.8);
+}
+
+[data-theme='light'] .errorIcon {
+  color: rgba(100, 116, 139, 0.7);
 }
 
 .errorTitle {
@@ -141,9 +148,16 @@
 }
 
 .emptyIcon {
-  font-size: 3rem;
   margin-bottom: 1rem;
-  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(148, 163, 184, 0.7);
+  opacity: 0.8;
+}
+
+[data-theme='light'] .emptyIcon {
+  color: rgba(100, 116, 139, 0.6);
 }
 
 .emptyTitle {

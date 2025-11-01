@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { ArrowRightIcon } from '../../../components/icons';
 import type { UserSummary } from '../types/user';
 import styles from './UserListItem.module.css';
 
@@ -52,21 +53,7 @@ export function UserListItem({ user, isActive, onSelect, disabled }: UserListIte
         aria-label={`View details for ${user.fullName}`}
         title="View details"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M5 12h14" />
-          <path d="m12 5 7 7-7 7" />
-        </svg>
+        <ArrowRightIcon />
         <span className="visuallyHidden">View details</span>
     </button>
     </div>

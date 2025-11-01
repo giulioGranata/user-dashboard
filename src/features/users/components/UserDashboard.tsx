@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { SearchIcon, WarningIcon } from '../../../components/icons';
 import { Spinner } from '../../../components/users/Spinner';
 import { useUserFilters } from '../hooks/useUserFilters';
 import { useUsers } from '../hooks/useUsers';
@@ -53,7 +54,7 @@ export function UserDashboard() {
       {isError && (
         <div role="alert" className={styles.errorState} aria-live="assertive">
           <div className={styles.errorIcon} aria-hidden="true">
-            ⚠️
+            <WarningIcon width={48} height={48} />
           </div>
           <h3 className={styles.errorTitle}>We could not load the users</h3>
           <p className={styles.errorMessage}>Please check your connection and try again.</p>
@@ -70,7 +71,7 @@ export function UserDashboard() {
       {!isLoading && !isError && filteredUsers.length === 0 && (
         <div className={styles.emptyState} role="status" aria-live="polite">
           <div className={styles.emptyIcon} aria-hidden="true">
-            🔍
+            <SearchIcon width={48} height={48} />
           </div>
           <h3 className={styles.emptyTitle}>No users match your filters</h3>
           <p className={styles.emptyMessage}>
