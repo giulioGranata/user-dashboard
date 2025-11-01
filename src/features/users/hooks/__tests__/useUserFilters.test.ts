@@ -1,7 +1,7 @@
 import { renderHook, act } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { useUserFilters } from '../useUserFilters';
-import type { UserSummary } from '../../types/user';
+import { useUserFilters } from '@/features/users/hooks/useUserFilters';
+import type { UserSummary } from '@/features/users/types/user';
 
 const mockUsers: UserSummary[] = [
   {

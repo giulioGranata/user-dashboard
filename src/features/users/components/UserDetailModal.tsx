@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import clsx from 'clsx';
-import { CloseIcon } from '../../../components/icons';
+import { CloseIcon } from '@/components/icons';
 import { UserDetailPanel } from './UserDetailPanel';
-import type { UserSummary } from '../types/user';
+import type { UserSummary } from '@/features/users/types/user';
 import styles from './UserDetailModal.module.css';
 
 interface UserDetailModalProps {

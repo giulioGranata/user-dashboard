@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { fetchUsers } from '../api/userService';
-import type { UserSummary } from '../types/user';
+import { fetchUsers } from '@/features/users/api/userService';
+import type { UserSummary } from '@/features/users/types/user';
 
 const DEFAULT_LIMIT = 20;
 

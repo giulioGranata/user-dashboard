@@ -1,5 +1,5 @@
-import { Spinner } from '../../../components/users/Spinner';
-import type { UserSummary } from '../types/user';
+import { Spinner } from '@/components/users/Spinner';
+import type { UserSummary } from '@/features/users/types/user';
 import styles from './UserDetailPanel.module.css';
 
 interface UserDetailPanelProps {

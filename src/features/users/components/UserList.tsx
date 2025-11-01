@@ -1,7 +1,7 @@
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import { UserListItem } from './UserListItem';
-import { Spinner } from '../../../components/users/Spinner';
-import type { UserSummary } from '../types/user';
+import { Spinner } from '@/components/users/Spinner';
+import type { UserSummary } from '@/features/users/types/user';
 import styles from './UserList.module.css';
 
 interface UserListProps {

@@ -2,12 +2,12 @@ import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import axios from 'axios';
 import type { Mock } from 'vitest';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { renderWithProviders } from '../../../test/test-utils';
-import * as userService from '../api/userService';
-import { UserDashboard } from '../components/UserDashboard';
+import { renderWithProviders } from '@/test/test-utils';
+import * as userService from '@/features/users/api/userService';
+import { UserDashboard } from '@/features/users/components/UserDashboard';
 
 vi.mock('axios');
-vi.mock('../api/userService');
+vi.mock('@/features/users/api/userService');
 
 const mockedAxios = axios as unknown as {
   get: Mock;

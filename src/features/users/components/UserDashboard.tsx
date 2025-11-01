@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { SearchIcon, WarningIcon } from '../../../components/icons';
-import { Spinner } from '../../../components/users/Spinner';
-import { useUserFilters } from '../hooks/useUserFilters';
-import { useUsers } from '../hooks/useUsers';
-import type { UserSummary } from '../types/user';
+import { SearchIcon, WarningIcon } from '@/components/icons';
+import { Spinner } from '@/components/users/Spinner';
+import { useUserFilters } from '@/features/users/hooks/useUserFilters';
+import { useUsers } from '@/features/users/hooks/useUsers';
+import type { UserSummary } from '@/features/users/types/user';
 import styles from './UserDashboard.module.css';
 import { UserDetailModal } from './UserDetailModal';
 import { UserFilters } from './UserFilters';

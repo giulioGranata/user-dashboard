@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from 'react';
-import { Navbar } from './Navbar';
+import { Navbar } from '@/components/layout/Navbar';
 import styles from './AppLayout.module.css';
 
 export function AppLayout({ children }: PropsWithChildren) {

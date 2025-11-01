@@ -1,4 +1,4 @@
-import { ThemeToggle } from './ThemeToggle';
+import { ThemeToggle } from '@/components/layout/ThemeToggle';
 import styles from './Navbar.module.css';
 
 export function Navbar() {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { UserResponse, UserRole, UserSummary } from '../types/user';
+import type { UserResponse, UserRole, UserSummary } from '@/features/users/types/user';
 
 const BASE_API_URL = 'https://dummyjson.com/users';
 const DEFAULT_LIMIT = 20;

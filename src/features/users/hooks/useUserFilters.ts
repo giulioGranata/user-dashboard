@@ -1,5 +1,5 @@
+import type { UserRole, UserSummary } from '@/features/users/types/user';
 import { useMemo, useState } from 'react';
-import type { UserRole, UserSummary } from '../types/user';
 
 export interface UserFiltersState {
   search: string;
@@ -8,7 +8,7 @@ export interface UserFiltersState {
 
 const INITIAL_FILTERS: UserFiltersState = {
   search: '',
-  role: 'all'
+  role: 'all',
 };
 
 export function useUserFilters(users: UserSummary[]) {
@@ -28,6 +28,6 @@ export function useUserFilters(users: UserSummary[]) {
     filters,
     filteredUsers,
     setSearch: (value: string) => setFilters((prev) => ({ ...prev, search: value })),
-    setRole: (role: UserFiltersState['role']) => setFilters((prev) => ({ ...prev, role }))
+    setRole: (role: UserFiltersState['role']) => setFilters((prev) => ({ ...prev, role })),
   };
 }

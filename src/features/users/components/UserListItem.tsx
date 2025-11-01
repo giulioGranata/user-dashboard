@@ -1,6 +1,6 @@
 import clsx from 'clsx';
-import { EyeIcon } from '../../../components/icons';
-import type { UserSummary } from '../types/user';
+import { EyeIcon } from '@/components/icons';
+import type { UserSummary } from '@/features/users/types/user';
 import styles from './UserListItem.module.css';
 
 interface UserListItemProps {

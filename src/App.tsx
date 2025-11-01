@@ -1,5 +1,5 @@
-import { AppLayout } from './components/layout/AppLayout';
-import { UserDashboard } from './features/users/components/UserDashboard';
+import { AppLayout } from '@/components/layout/AppLayout';
+import { UserDashboard } from '@/features/users/components/UserDashboard';
 
 function App() {
   return (
