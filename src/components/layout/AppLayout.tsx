@@ -12,7 +12,7 @@ export function AppLayout({ children }: PropsWithChildren) {
             up-to-date status information with a responsive, accessible experience.
           </p>
         </header>
-        <main className={styles.content}>{children}</main>
+        <main>{children}</main>
       </div>
     </div>
   );

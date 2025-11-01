@@ -6,3 +6,11 @@ coverage
 *.log
 .idea
 .vscode
+
+# Compiled files
+*.js
+!vite.config.js
+*.js.map
+*.d.ts
+!src/**/*.d.ts
+tsconfig*.tsbuildinfo

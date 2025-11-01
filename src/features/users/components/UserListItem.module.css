@@ -1,13 +1,14 @@
 .item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.75rem 1rem;
+  display: block;
+  padding: 1rem 1.25rem;
   border-radius: 1rem;
   background: rgba(30, 41, 59, 0.75);
   border: 1px solid transparent;
   cursor: pointer;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
   width: 100%;
 }
 
@@ -15,7 +16,7 @@
 .item:focus-visible {
   border-color: rgba(129, 140, 248, 0.65);
   outline: none;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .itemActive {
@@ -23,18 +24,10 @@
   box-shadow: 0 16px 32px rgba(79, 70, 229, 0.35);
 }
 
-.avatar {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
 .info {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
-  flex: 1;
+  gap: 0.35rem;
 }
 
 .name {
@@ -43,9 +36,7 @@
 }
 
 .meta {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  display: block;
   font-size: 0.85rem;
   color: rgba(148, 163, 184, 0.9);
 }
@@ -56,25 +47,4 @@
   background: rgba(59, 130, 246, 0.18);
   color: #93c5fd;
   text-transform: capitalize;
-}
-
-.statusActive {
-  color: #34d399;
-}
-
-.statusInactive {
-  color: #fbbf24;
-}
-
-.statusOut {
-  color: #f97316;
-}
-
-.cta {
-  margin-left: auto;
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: rgba(129, 140, 248, 0.9);
 }

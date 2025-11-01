@@ -14,7 +14,12 @@
     "noFallthroughCasesInSwitch": true,
     "jsx": "react-jsx",
     "baseUrl": "./src",
-    "types": ["vitest/globals", "vite/client"]
+    "types": ["vitest/globals"],
+    "plugins": [
+      {
+        "name": "@css-modules-kit/ts-plugin"
+      }
+    ]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
