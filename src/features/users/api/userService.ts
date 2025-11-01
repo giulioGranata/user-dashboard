@@ -3,7 +3,7 @@ import type { UserResponse, UserRole, UserSummary } from '../types/user';
 
 const API_URL = 'https://dummyjson.com/users?limit=100';
 
-const FALLBACK_ROLES: UserRole[] = ['admin', 'manager', 'editor', 'viewer'];
+const FALLBACK_ROLES: UserRole[] = ['admin', 'manager', 'viewer'];
 
 function normalizeRole(role?: string): UserRole {
   if (!role) {
@@ -12,7 +12,7 @@ function normalizeRole(role?: string): UserRole {
 
   const normalized = role.toLowerCase();
 
-  if (normalized === 'admin' || normalized === 'editor' || normalized === 'viewer') {
+  if (normalized === 'admin' || normalized === 'viewer') {
     return normalized;
   }
 

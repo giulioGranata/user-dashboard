@@ -12,7 +12,6 @@ interface UserListItemProps {
 const roleColors: Record<UserSummary['role'], { bg: string; text: string }> = {
   admin: { bg: 'rgba(239, 68, 68, 0.15)', text: '#fca5a5' },
   manager: { bg: 'rgba(251, 191, 36, 0.15)', text: '#fcd34d' },
-  editor: { bg: 'rgba(59, 130, 246, 0.15)', text: '#93c5fd' },
   viewer: { bg: 'rgba(148, 163, 184, 0.15)', text: '#cbd5e1' },
 };
 

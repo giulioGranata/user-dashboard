@@ -9,7 +9,7 @@ interface UserFiltersProps {
   total: number;
 }
 
-const ROLES: UserFiltersState['role'][] = ['all', 'admin', 'manager', 'editor', 'viewer'];
+const ROLES: UserFiltersState['role'][] = ['all', 'admin', 'manager', 'viewer'];
 
 export function UserFilters({ filters, onSearchChange, onRoleChange, total }: UserFiltersProps) {
   return (

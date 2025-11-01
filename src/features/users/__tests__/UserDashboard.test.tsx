@@ -49,7 +49,7 @@ function setupUserService(users = mockUsers) {
     id: user.id,
     fullName: `${user.firstName} ${user.lastName}`.trim(),
     email: user.email,
-    role: user.role as 'admin' | 'manager' | 'editor' | 'viewer',
+    role: user.role as 'admin' | 'manager' | 'viewer',
     status: 'Active' as const,
     avatarUrl: user.image || `https://api.dicebear.com/7.x/initials/svg?seed=${user.firstName}`,
     phone: 'N/A',
@@ -165,7 +165,7 @@ describe('UserDashboard', () => {
           id: user.id,
           fullName: `${user.firstName} ${user.lastName}`.trim(),
           email: user.email,
-          role: user.role as 'admin' | 'manager' | 'editor' | 'viewer',
+          role: user.role as 'admin' | 'manager' | 'viewer',
           status: 'Active' as const,
           avatarUrl:
             user.image || `https://api.dicebear.com/7.x/initials/svg?seed=${user.firstName}`,

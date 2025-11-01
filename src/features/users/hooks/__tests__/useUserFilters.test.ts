@@ -38,7 +38,7 @@ const mockUsers: UserSummary[] = [
     id: 4,
     fullName: 'Ada Wong',
     email: 'ada.wong@example.com',
-    role: 'editor',
+    role: 'manager',
     status: 'Active',
     avatarUrl: 'https://example.com/ada-wong.png',
     phone: '123-456-7893',
@@ -76,7 +76,7 @@ describe('useUserFilters', () => {
     expect(result.current.filteredUsers).toHaveLength(2);
     expect(result.current.filteredUsers.map((u) => u.fullName)).toEqual([
       'Ada Lovelace',
-      'Ada Wong'
+      'Ada Wong',
     ]);
     expect(result.current.filters.search).toBe('ada');
   });
@@ -108,7 +108,7 @@ describe('useUserFilters', () => {
     const { result } = renderHook(() => useUserFilters(mockUsers));
 
     act(() => {
-      result.current.setRole('editor');
+      result.current.setRole('viewer');
       result.current.setSearch('nonexistent');
     });
 
