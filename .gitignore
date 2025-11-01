@@ -10,7 +10,11 @@ coverage
 # Compiled files
 *.js
 !vite.config.js
+!vite.config.*.js
 *.js.map
 *.d.ts
 !src/**/*.d.ts
 tsconfig*.tsbuildinfo
+
+# Exclude compiled JS files in src directory
+src/**/*.js
