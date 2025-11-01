@@ -12,23 +12,9 @@
   transition:
     transform 0.2s ease,
     border-color 0.2s ease,
-    box-shadow 0.2s ease,
     background 0.2s ease;
   width: 100%;
   text-align: left;
-  position: relative;
-  overflow: visible;
-}
-
-.item::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: transparent;
-  transition: background 0.2s ease;
 }
 
 .item:hover,
@@ -39,20 +25,10 @@
   transform: translateX(4px);
 }
 
-.item:hover::before,
-.item:focus-visible::before {
-  background: linear-gradient(180deg, #60a5fa, #3b82f6);
-}
-
 .itemActive {
   border-color: rgba(129, 140, 248, 0.9);
   background: rgba(30, 41, 59, 0.95);
   box-shadow: 0 8px 24px rgba(79, 70, 229, 0.25);
-}
-
-.itemActive::before {
-  background: linear-gradient(180deg, #818cf8, #6366f1);
-  width: 4px;
 }
 
 .itemActive:hover,
@@ -145,9 +121,7 @@
   text-transform: capitalize;
   letter-spacing: 0.025em;
   flex-shrink: 0;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
 .item:hover .role {
@@ -166,11 +140,7 @@
   background: rgba(96, 165, 250, 0.1);
   color: #60a5fa;
   cursor: pointer;
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease,
-    color 0.2s ease;
+  transition: all 0.2s ease;
   padding: 0;
   line-height: 1;
 }
