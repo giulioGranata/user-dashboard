@@ -38,9 +38,6 @@ export function UserDashboard() {
 
   return (
     <section className={styles.dashboard} aria-labelledby="user-directory">
-      <h2 id="user-directory" className={styles.sectionTitle}>
-        Team directory
-      </h2>
       <UserFilters
         filters={filters}
         onSearchChange={setSearch}

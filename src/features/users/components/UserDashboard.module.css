@@ -6,7 +6,10 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  flex: 1;
   min-height: 0;
+  overflow: hidden;
+  width: 100%;
 }
 
 [data-theme='light'] .dashboard {
@@ -30,14 +33,6 @@
   }
 }
 
-.sectionTitle {
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  color: rgba(226, 232, 240, 0.65);
-}
-
 .loadingState {
   display: flex;
   flex-direction: column;
@@ -46,6 +41,8 @@
   gap: 1rem;
   padding: 3rem 2rem;
   text-align: center;
+  flex: 1;
+  min-height: 0;
 }
 
 .loadingText {
@@ -60,6 +57,11 @@
   background: rgba(239, 68, 68, 0.1);
   border: 1px solid rgba(239, 68, 68, 0.3);
   border-radius: 1rem;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .errorIcon {
@@ -103,6 +105,11 @@
   text-align: center;
   padding: 3rem 2rem;
   color: rgba(226, 232, 240, 0.75);
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .emptyIcon {
