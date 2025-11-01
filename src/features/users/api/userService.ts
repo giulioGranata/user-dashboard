@@ -37,19 +37,19 @@ function formatLocation(user: UserResponse): string {
 
 export async function fetchUsers(): Promise<UserSummary[]> {
   try {
-    const response = await axios.get<{ users: UserResponse[] }>(API_URL);
-    return response.data.users.map((user) => ({
-      id: user.id,
-      fullName: `${user.firstName} ${user.lastName}`.trim(),
-      email: user.email,
-      role: normalizeRole(user.role),
-      status: deriveStatus(user.id),
-      avatarUrl:
-        user.image ??
-        `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.firstName ?? 'User')}`,
-      phone: user.phone ?? 'N/A',
-      location: formatLocation(user) || 'Remote'
-    }));
+  const response = await axios.get<{ users: UserResponse[] }>(API_URL);
+  return response.data.users.map((user) => ({
+    id: user.id,
+    fullName: `${user.firstName} ${user.lastName}`.trim(),
+    email: user.email,
+    role: normalizeRole(user.role),
+    status: deriveStatus(user.id),
+    avatarUrl:
+      user.image ??
+      `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.firstName ?? 'User')}`,
+    phone: user.phone ?? 'N/A',
+    location: formatLocation(user) || 'Remote'
+  }));
   } catch (error) {
     if (axios.isAxiosError(error)) {
       throw new Error(`Failed to fetch users: ${error.message}`);

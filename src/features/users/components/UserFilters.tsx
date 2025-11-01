@@ -31,7 +31,7 @@ export function UserFilters({ filters, onSearchChange, onRoleChange, total }: Us
         <input
           type="search"
           name="search"
-          placeholder="Search teammates"
+          placeholder="Search users"
           value={filters.search}
           onChange={(event) => onSearchChange(event.target.value)}
         />
@@ -52,7 +52,7 @@ export function UserFilters({ filters, onSearchChange, onRoleChange, total }: Us
       </div>
 
       <span className={styles.meta} aria-live="polite">
-        Showing <strong>{total}</strong> {total === 1 ? 'person' : 'people'}
+        Showing <strong>{total}</strong> {total === 1 ? 'user' : 'users'}
       </span>
     </div>
   );

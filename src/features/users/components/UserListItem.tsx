@@ -32,7 +32,7 @@ export function UserListItem({ user, isActive, onSelect, disabled }: UserListIte
     >
       <div className={styles.info}>
         <div className={styles.header}>
-          <span className={styles.name}>{user.fullName}</span>
+        <span className={styles.name}>{user.fullName}</span>
           <span
             className={styles.role}
             style={{
@@ -69,7 +69,7 @@ export function UserListItem({ user, isActive, onSelect, disabled }: UserListIte
           <path d="m12 5 7 7-7 7" />
         </svg>
         <span className="visuallyHidden">View details</span>
-      </button>
+    </button>
     </div>
   );
 }

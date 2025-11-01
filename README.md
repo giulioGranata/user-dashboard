@@ -1,6 +1,6 @@
 # User Dashboard
 
-A responsive and accessible React + TypeScript dashboard for browsing teammates, filtering by role, and reviewing individual profiles.
+A responsive and accessible React + TypeScript dashboard for browsing users, filtering by role, and reviewing individual profiles.
 
 ## ✨ Features
 

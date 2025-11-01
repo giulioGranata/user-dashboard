@@ -15,16 +15,16 @@ export function UserDetailPanel({ user, isLoading }: UserDetailPanelProps) {
   if (!user) {
     return (
       <p className={styles.placeholder}>
-        Select a teammate to see their contact information and current availability.
+        Select an user to see their contact information and current availability.
       </p>
     );
   }
 
   return (
     <div className={styles.panel} id="user-profile-details">
-      <img 
-        src={user.avatarUrl} 
-        alt={`${user.fullName} avatar`} 
+      <img
+        src={user.avatarUrl}
+        alt={`${user.fullName} avatar`}
         className={styles.avatar}
         loading="lazy"
       />

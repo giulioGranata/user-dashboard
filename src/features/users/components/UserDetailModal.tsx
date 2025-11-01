@@ -54,7 +54,7 @@ export function UserDetailModal({ user, onClose }: UserDetailModalProps) {
     
     // Focus the close button on mount
     setTimeout(() => {
-      closeButtonRef.current?.focus();
+    closeButtonRef.current?.focus();
     }, 0);
 
     return () => {

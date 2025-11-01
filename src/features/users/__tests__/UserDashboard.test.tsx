@@ -1,11 +1,13 @@
-import { fireEvent, screen, waitFor } from '@testing-library/react';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import type { Mock } from 'vitest';
+import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import axios from 'axios';
-import { UserDashboard } from '../components/UserDashboard';
+import type { Mock } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { renderWithProviders } from '../../../test/test-utils';
+import * as userService from '../api/userService';
+import { UserDashboard } from '../components/UserDashboard';
 
 vi.mock('axios');
+vi.mock('../api/userService');
 
 const mockedAxios = axios as unknown as {
   get: Mock;
@@ -18,7 +20,7 @@ const mockUsers = [
     lastName: 'Lovelace',
     email: 'ada@example.com',
     role: 'admin',
-    image: 'https://example.com/ada.png'
+    image: 'https://example.com/ada.png',
   },
   {
     id: 2,
@@ -26,7 +28,7 @@ const mockUsers = [
     lastName: 'Hopper',
     email: 'grace@example.com',
     role: 'manager',
-    image: 'https://example.com/grace.png'
+    image: 'https://example.com/grace.png',
   },
   {
     id: 3,
@@ -34,17 +36,33 @@ const mockUsers = [
     lastName: 'Turing',
     email: 'alan@example.com',
     role: 'viewer',
-    image: 'https://example.com/alan.png'
-  }
+    image: 'https://example.com/alan.png',
+  },
 ];
 
 function setupAxios(users = mockUsers) {
   mockedAxios.get = vi.fn().mockResolvedValue({ data: { users } });
 }
 
+function setupUserService(users = mockUsers) {
+  const normalizedUsers = users.map((user) => ({
+    id: user.id,
+    fullName: `${user.firstName} ${user.lastName}`.trim(),
+    email: user.email,
+    role: user.role as 'admin' | 'manager' | 'editor' | 'viewer',
+    status: 'Active' as const,
+    avatarUrl: user.image || `https://api.dicebear.com/7.x/initials/svg?seed=${user.firstName}`,
+    phone: 'N/A',
+    location: 'Remote',
+  }));
+
+  vi.mocked(userService.fetchUsers).mockResolvedValue(normalizedUsers);
+}
+
 describe('UserDashboard', () => {
   beforeEach(() => {
     setupAxios();
+    setupUserService();
   });
 
   afterEach(() => {
@@ -55,46 +73,221 @@ describe('UserDashboard', () => {
     renderWithProviders(<UserDashboard />);
 
     await waitFor(() => {
-      expect(screen.getByRole('button', { name: /ada lovelace/i })).toBeInTheDocument();
+      expect(
+        screen.getByRole('button', { name: /view details for ada lovelace/i }),
+      ).toBeInTheDocument();
     });
 
-    expect(screen.getByRole('button', { name: /grace hopper/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /alan turing/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /view details for grace hopper/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /view details for alan turing/i }),
+    ).toBeInTheDocument();
   });
 
   it('filters users by role', async () => {
     renderWithProviders(<UserDashboard />);
 
-    await waitFor(() => screen.getByRole('button', { name: /ada lovelace/i }));
+    await waitFor(() => screen.getByRole('button', { name: /view details for ada lovelace/i }));
 
     fireEvent.click(screen.getByRole('button', { name: /manager/i }));
 
-    expect(screen.getByRole('button', { name: /grace hopper/i })).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: /ada lovelace/i })).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /view details for grace hopper/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: /view details for ada lovelace/i }),
+    ).not.toBeInTheDocument();
   });
 
   it('filters users by search term', async () => {
     renderWithProviders(<UserDashboard />);
 
-    await waitFor(() => screen.getByRole('button', { name: /ada lovelace/i }));
+    await waitFor(() => screen.getByRole('button', { name: /view details for ada lovelace/i }));
 
-    const searchBox = screen.getByPlaceholderText(/search teammates/i);
+    const searchBox = screen.getByPlaceholderText(/search users/i);
     fireEvent.change(searchBox, { target: { value: 'Alan' } });
 
-    expect(screen.getByRole('button', { name: /alan turing/i })).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: /ada lovelace/i })).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: /grace hopper/i })).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /view details for alan turing/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: /view details for ada lovelace/i }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: /view details for grace hopper/i }),
+    ).not.toBeInTheDocument();
   });
 
   it('shows empty state when no users match filters', async () => {
     renderWithProviders(<UserDashboard />);
 
-    await waitFor(() => screen.getByRole('button', { name: /ada lovelace/i }));
+    await waitFor(() => screen.getByRole('button', { name: /view details for ada lovelace/i }));
 
-    fireEvent.change(screen.getByPlaceholderText(/search teammates/i), {
-      target: { value: 'zzz' }
+    fireEvent.change(screen.getByPlaceholderText(/search users/i), {
+      target: { value: 'zzz' },
     });
 
     expect(screen.getByText(/no users match your filters/i)).toBeInTheDocument();
+  });
+
+  it('shows loading state while fetching users', () => {
+    vi.mocked(userService.fetchUsers).mockImplementation(
+      () => new Promise(() => {}), // Never resolves
+    );
+
+    renderWithProviders(<UserDashboard />);
+
+    expect(screen.getByText(/loading users/i)).toBeInTheDocument();
+    expect(screen.getByText(/fetching team members/i)).toBeInTheDocument();
+  });
+
+  it('shows error state when fetch fails', async () => {
+    vi.mocked(userService.fetchUsers).mockRejectedValue(new Error('Network error'));
+
+    renderWithProviders(<UserDashboard />);
+
+    await waitFor(() => {
+      expect(screen.getByRole('alert')).toBeInTheDocument();
+    });
+
+    expect(screen.getByText(/we could not load the users/i)).toBeInTheDocument();
+    expect(screen.getByText(/please check your connection and try again/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /retry loading users/i })).toBeInTheDocument();
+  });
+
+  it('retries fetch when retry button is clicked', async () => {
+    vi.mocked(userService.fetchUsers)
+      .mockRejectedValueOnce(new Error('Network error'))
+      .mockResolvedValueOnce(
+        mockUsers.map((user) => ({
+          id: user.id,
+          fullName: `${user.firstName} ${user.lastName}`.trim(),
+          email: user.email,
+          role: user.role as 'admin' | 'manager' | 'editor' | 'viewer',
+          status: 'Active' as const,
+          avatarUrl:
+            user.image || `https://api.dicebear.com/7.x/initials/svg?seed=${user.firstName}`,
+          phone: 'N/A',
+          location: 'Remote',
+        })),
+      );
+
+    renderWithProviders(<UserDashboard />);
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /retry loading users/i })).toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: /retry loading users/i }));
+
+    await waitFor(() => {
+      expect(
+        screen.getByRole('button', { name: /view details for ada lovelace/i }),
+      ).toBeInTheDocument();
+    });
+  });
+
+  it('opens modal when a user is clicked', async () => {
+    renderWithProviders(<UserDashboard />);
+
+    await waitFor(() => screen.getByRole('button', { name: /view details for ada lovelace/i }));
+
+    fireEvent.click(screen.getByRole('button', { name: /view details for ada lovelace/i }));
+
+    await waitFor(() => {
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    const modal = screen.getByRole('dialog');
+    expect(modal).toBeInTheDocument();
+    expect(modal).toHaveAttribute('aria-labelledby', 'user-profile-title');
+
+    // Check content inside modal using within()
+    const modalContent = within(modal);
+    // Use getElementById to find the specific heading with id="user-profile-title"
+    const heading = document.getElementById('user-profile-title');
+    expect(heading).toBeInTheDocument();
+    expect(heading?.textContent).toBe('Ada Lovelace');
+    expect(modalContent.getByText('ada@example.com')).toBeInTheDocument();
+  });
+
+  it('closes modal when close button is clicked', async () => {
+    renderWithProviders(<UserDashboard />);
+
+    await waitFor(() => screen.getByRole('button', { name: /view details for ada lovelace/i }));
+
+    fireEvent.click(screen.getByRole('button', { name: /view details for ada lovelace/i }));
+
+    await waitFor(() => {
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: /close user details/i }));
+
+    await waitFor(() => {
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+  });
+
+  it('closes modal when Escape key is pressed', async () => {
+    renderWithProviders(<UserDashboard />);
+
+    await waitFor(() => screen.getByRole('button', { name: /view details for ada lovelace/i }));
+
+    fireEvent.click(screen.getByRole('button', { name: /view details for ada lovelace/i }));
+
+    await waitFor(() => {
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    fireEvent.keyDown(document, { key: 'Escape' });
+
+    await waitFor(() => {
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+  });
+
+  it('closes modal when clicking backdrop', async () => {
+    renderWithProviders(<UserDashboard />);
+
+    await waitFor(() => screen.getByRole('button', { name: /view details for ada lovelace/i }));
+
+    fireEvent.click(screen.getByRole('button', { name: /view details for ada lovelace/i }));
+
+    await waitFor(() => {
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    // Click on the backdrop (the element with role="presentation")
+    const backdrop = document.querySelector('[role="presentation"]');
+    if (backdrop) {
+      fireEvent.click(backdrop);
+    }
+
+    await waitFor(() => {
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+  });
+
+  it('closes modal when selected user is filtered out', async () => {
+    renderWithProviders(<UserDashboard />);
+
+    await waitFor(() => screen.getByRole('button', { name: /view details for ada lovelace/i }));
+
+    // Open modal for Ada
+    fireEvent.click(screen.getByRole('button', { name: /view details for ada lovelace/i }));
+
+    await waitFor(() => {
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    // Filter to only show managers (Grace, not Ada)
+    fireEvent.click(screen.getByRole('button', { name: /manager/i }));
+
+    await waitFor(() => {
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
   });
 });
