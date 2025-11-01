@@ -24,12 +24,30 @@
   color: #f8fafc;
 }
 
+.searchField input::placeholder {
+  color: rgba(148, 163, 184, 0.6);
+}
+
 .searchField svg {
   position: absolute;
   top: 50%;
   left: 1rem;
   transform: translateY(-50%);
   color: rgba(148, 163, 184, 0.85);
+}
+
+[data-theme='light'] .searchField input {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(226, 232, 240, 0.8);
+  color: #0f172a;
+}
+
+[data-theme='light'] .searchField input::placeholder {
+  color: rgba(71, 85, 105, 0.6);
+}
+
+[data-theme='light'] .searchField svg {
+  color: rgba(71, 85, 105, 0.7);
 }
 
 .roles {
@@ -68,10 +86,34 @@
 .roleButtonActive {
   background: linear-gradient(135deg, #38bdf8, #6366f1);
   border-color: transparent;
+  color: #ffffff;
   box-shadow: 0 12px 24px rgba(99, 102, 241, 0.35);
+}
+
+[data-theme='light'] .roleButton {
+  background: rgba(241, 245, 249, 0.9);
+  color: #475569;
+  border-color: rgba(226, 232, 240, 0.8);
+}
+
+[data-theme='light'] .roleButton:hover,
+[data-theme='light'] .roleButton:focus-visible {
+  background: rgba(241, 245, 249, 0.95);
+  border-color: rgba(59, 130, 246, 0.4);
+  color: #1e293b;
+}
+
+[data-theme='light'] .roleButtonActive {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: #ffffff;
+  box-shadow: 0 8px 16px rgba(59, 130, 246, 0.25);
 }
 
 .meta {
   color: rgba(148, 163, 184, 0.8);
   font-size: 0.875rem;
+}
+
+[data-theme='light'] .meta {
+  color: rgba(71, 85, 105, 0.8);
 }

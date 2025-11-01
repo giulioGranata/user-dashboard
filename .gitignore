@@ -5,7 +5,7 @@ dist
 coverage
 *.log
 .idea
-.vscode
+.cursor
 
 # Compiled files
 *.js

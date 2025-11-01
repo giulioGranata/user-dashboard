@@ -21,6 +21,10 @@
   margin: 0;
 }
 
+[data-theme='light'] .name {
+  color: #0f172a;
+}
+
 .metaList {
   width: 100%;
   display: grid;
@@ -38,6 +42,11 @@
   width: 100%;
 }
 
+[data-theme='light'] .metaItem {
+  background: rgba(241, 245, 249, 0.9);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
 .metaLabel {
   font-size: 0.8rem;
   letter-spacing: 0.08em;
@@ -45,12 +54,24 @@
   color: rgba(148, 163, 184, 0.75);
 }
 
+[data-theme='light'] .metaLabel {
+  color: rgba(71, 85, 105, 0.7);
+}
+
 .metaValue {
   color: #e2e8f0;
   font-weight: 500;
 }
 
+[data-theme='light'] .metaValue {
+  color: #1e293b;
+}
+
 .placeholder {
   color: rgba(226, 232, 240, 0.7);
   margin: 2rem 0;
+}
+
+[data-theme='light'] .placeholder {
+  color: rgba(71, 85, 105, 0.7);
 }
