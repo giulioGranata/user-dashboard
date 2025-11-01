@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { ArrowRightIcon } from '../../../components/icons';
+import { EyeIcon } from '../../../components/icons';
 import type { UserSummary } from '../types/user';
 import styles from './UserListItem.module.css';
 
@@ -47,13 +47,13 @@ export function UserListItem({ user, isActive, onSelect, disabled }: UserListIte
       </div>
       <button
         type="button"
-        className={styles.ctaButton}
+        className={clsx('buttonGhost', styles.ctaButton)}
         onClick={handleViewDetails}
         disabled={disabled}
         aria-label={`View details for ${user.fullName}`}
         title="View details"
       >
-        <ArrowRightIcon />
+        <EyeIcon />
         <span className="visuallyHidden">View details</span>
     </button>
     </div>

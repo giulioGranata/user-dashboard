@@ -89,3 +89,42 @@ button {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
+/* Ghost button variant - reusable style */
+.buttonGhost {
+  border: none;
+  background: transparent;
+  color: rgba(148, 163, 184, 0.7);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+}
+
+.buttonGhost:hover,
+.buttonGhost:focus-visible {
+  outline: none;
+  background: rgba(148, 163, 184, 0.1);
+  color: rgba(203, 213, 225, 0.9);
+}
+
+.buttonGhost:active {
+  background: rgba(148, 163, 184, 0.15);
+}
+
+[data-theme='light'] .buttonGhost {
+  color: rgba(100, 116, 139, 0.7);
+}
+
+[data-theme='light'] .buttonGhost:hover,
+[data-theme='light'] .buttonGhost:focus-visible {
+  background: rgba(148, 163, 184, 0.1);
+  color: rgba(71, 85, 105, 0.9);
+}
+
+[data-theme='light'] .buttonGhost:active {
+  background: rgba(148, 163, 184, 0.15);
+}

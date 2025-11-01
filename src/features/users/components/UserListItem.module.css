@@ -132,43 +132,17 @@
   flex-shrink: 0;
   width: 2.5rem;
   height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.5rem;
-  border: 1px solid transparent;
-  background: rgba(148, 163, 184, 0.1);
-  color: rgba(148, 163, 184, 0.8);
-  cursor: pointer;
-  transition: all 0.2s ease;
   padding: 0;
   line-height: 1;
 }
 
 .ctaButton:hover,
 .ctaButton:focus-visible {
-  background: rgba(148, 163, 184, 0.15);
-  border-color: rgba(148, 163, 184, 0.3);
-  color: rgba(203, 213, 225, 0.95);
-  outline: none;
   transform: translateX(2px);
 }
 
 .ctaButton:active {
   transform: translateX(1px);
-}
-
-.itemActive .ctaButton {
-  background: rgba(148, 163, 184, 0.15);
-  border-color: rgba(148, 163, 184, 0.25);
-  color: rgba(203, 213, 225, 0.9);
-}
-
-.itemActive .ctaButton:hover,
-.itemActive .ctaButton:focus-visible {
-  background: rgba(148, 163, 184, 0.2);
-  border-color: rgba(148, 163, 184, 0.35);
-  color: rgba(226, 232, 240, 0.95);
 }
 
 .ctaButton:disabled {
@@ -178,24 +152,6 @@
 
 .ctaButton:disabled:hover {
   transform: none;
-}
-
-[data-theme='light'] .ctaButton {
-  background: rgba(148, 163, 184, 0.1);
-  color: rgba(100, 116, 139, 0.8);
-}
-
-[data-theme='light'] .ctaButton:hover,
-[data-theme='light'] .ctaButton:focus-visible {
-  background: rgba(148, 163, 184, 0.15);
-  border-color: rgba(148, 163, 184, 0.25);
-  color: rgba(71, 85, 105, 0.9);
-}
-
-[data-theme='light'] .itemActive .ctaButton {
-  background: rgba(148, 163, 184, 0.15);
-  border-color: rgba(148, 163, 184, 0.25);
-  color: rgba(71, 85, 105, 0.85);
 }
 
 @media (max-width: 480px) {

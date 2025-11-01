@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import clsx from 'clsx';
 import { CloseIcon } from '../../../components/icons';
 import { UserDetailPanel } from './UserDetailPanel';
 import type { UserSummary } from '../types/user';
@@ -98,7 +99,7 @@ export function UserDetailModal({ user, onClose }: UserDetailModalProps) {
           <button
             ref={closeButtonRef}
             type="button"
-            className={styles.closeButton}
+            className={clsx('buttonGhost', styles.closeButton)}
             onClick={onClose}
             aria-label="Close user details"
           >
