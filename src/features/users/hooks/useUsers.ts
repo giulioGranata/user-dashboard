@@ -1,27 +1,57 @@
 import { fetchUsers } from '@/features/users/api/userService';
 import type { UserSummary } from '@/features/users/types/user';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 
 const DEFAULT_LIMIT = 20;
+const INITIAL_PAGE = 0;
 
 export function useUsers() {
-  const query = useInfiniteQuery({
-    queryKey: ['users'],
-    queryFn: ({ pageParam = 0 }) => fetchUsers({ skip: pageParam, limit: DEFAULT_LIMIT }),
-    getNextPageParam: (lastPage, allPages) => {
-      const totalLoaded = allPages.reduce((sum, page) => sum + page.users.length, 0);
-      return totalLoaded < lastPage.total ? totalLoaded : undefined;
-    },
-    initialPageParam: 0,
+  const [currentPage, setCurrentPage] = useState(INITIAL_PAGE);
+  const skip = currentPage * DEFAULT_LIMIT;
+
+  const query = useQuery({
+    queryKey: ['users', skip],
+    queryFn: () => fetchUsers({ skip, limit: DEFAULT_LIMIT }),
   });
 
-  // Flatten all pages into a single array of users
-  const allUsers: UserSummary[] = query.data?.pages.flatMap((page) => page.users) ?? [];
+  const users = query.data?.users ?? [];
+  const total = query.data?.total ?? 0;
+  const totalPages = Math.ceil(total / DEFAULT_LIMIT);
+  const hasNextPage = currentPage < totalPages - 1;
+  const hasPreviousPage = currentPage > 0;
+
+  const goToNextPage = () => {
+    if (hasNextPage) {
+      setCurrentPage((prev) => prev + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const goToPreviousPage = () => {
+    if (hasPreviousPage) {
+      setCurrentPage((prev) => prev - 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const goToPage = (page: number) => {
+    if (page >= 0 && page < totalPages) {
+      setCurrentPage(page);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   return {
     ...query,
-    data: allUsers,
-    total: query.data?.pages[0]?.total ?? 0,
-    hasNextPage: query.hasNextPage ?? false,
+    data: users,
+    total,
+    currentPage,
+    totalPages,
+    hasNextPage,
+    hasPreviousPage,
+    goToNextPage,
+    goToPreviousPage,
+    goToPage,
   };
 }
