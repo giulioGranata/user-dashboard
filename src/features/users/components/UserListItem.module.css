@@ -6,7 +6,7 @@
   padding: 1.25rem 1.5rem;
   min-height: 4.5rem;
   border-radius: 0.875rem;
-  background: rgba(30, 41, 59, 0.75);
+  background: rgb(var(--slate-700) / 0.75);
   border: 1px solid transparent;
   cursor: pointer;
   transition:
@@ -19,15 +19,15 @@
 
 .item:hover,
 .item:focus-visible {
-  border-color: rgba(129, 140, 248, 0.65);
-  background: rgba(30, 41, 59, 0.85);
+  border-color: rgb(var(--indigo-400) / 0.65);
+  background: rgb(var(--slate-700) / 0.85);
   outline: none;
   transform: translateX(4px);
 }
 
 .itemActive {
-  border-color: rgba(129, 140, 248, 0.9);
-  background: rgba(30, 41, 59, 0.95);
+  border-color: rgb(var(--indigo-400) / 0.9);
+  background: rgb(var(--slate-700) / 0.95);
   box-shadow: 0 8px 24px rgba(79, 70, 229, 0.25);
 }
 
@@ -50,19 +50,19 @@
 }
 
 [data-theme='light'] .item {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(226, 232, 240, 0.8);
+  background: rgb(255 255 255 / 0.9);
+  border-color: rgb(var(--slate-200) / 0.8);
 }
 
 [data-theme='light'] .item:hover,
 [data-theme='light'] .item:focus-visible {
-  background: rgba(248, 250, 252, 0.95);
-  border-color: rgba(59, 130, 246, 0.4);
+  background: rgb(var(--slate-50) / 0.95);
+  border-color: rgb(var(--blue-500) / 0.4);
 }
 
 [data-theme='light'] .itemActive {
-  background: rgba(248, 250, 252, 0.98);
-  border-color: rgba(59, 130, 246, 0.6);
+  background: rgb(var(--slate-50) / 0.98);
+  border-color: rgb(var(--blue-500) / 0.6);
   box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
 }
 
@@ -86,7 +86,7 @@
 .name {
   font-weight: 600;
   font-size: 1rem;
-  color: #f8fafc;
+  color: rgb(var(--slate-50));
   line-height: 1.4;
   flex: 1;
   min-width: 0;
@@ -96,13 +96,13 @@
 }
 
 [data-theme='light'] .name {
-  color: #0f172a;
+  color: var(--color-text-primary);
 }
 
 .email {
   display: block;
   font-size: 0.875rem;
-  color: rgba(148, 163, 184, 0.9);
+  color: rgb(var(--slate-400) / 0.9);
   line-height: 1.4;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -110,7 +110,7 @@
 }
 
 [data-theme='light'] .email {
-  color: rgba(71, 85, 105, 0.9);
+  color: rgb(var(--slate-600) / 0.9);
 }
 
 .role {

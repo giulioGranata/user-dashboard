@@ -4,7 +4,7 @@
   border-radius: 0.5rem;
   border: none;
   background: transparent;
-  color: rgba(148, 163, 184, 0.8);
+  color: rgb(var(--slate-400) / 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,8 +17,8 @@
 
 .toggle:hover,
 .toggle:focus-visible {
-  background: rgba(148, 163, 184, 0.1);
-  color: rgba(226, 232, 240, 0.95);
+  background: rgb(var(--slate-400) / 0.1);
+  color: rgb(var(--slate-200) / 0.95);
   outline: none;
 }
 
@@ -36,13 +36,13 @@
 }
 
 [data-theme='light'] .toggle {
-  color: rgba(71, 85, 105, 0.8);
+  color: rgb(var(--slate-600) / 0.8);
 }
 
 [data-theme='light'] .toggle:hover,
 [data-theme='light'] .toggle:focus-visible {
-  background: rgba(148, 163, 184, 0.1);
-  color: rgba(15, 23, 42, 0.95);
+  background: rgb(var(--slate-400) / 0.1);
+  color: var(--color-text-primary);
 }
 
 @media (max-width: 768px) {

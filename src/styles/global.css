@@ -25,6 +25,31 @@
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+
+  /* Color Palette - Slate */
+  --slate-50: 248 250 252;
+  --slate-100: 241 245 249;
+  --slate-200: 226 232 240;
+  --slate-300: 203 213 225;
+  --slate-400: 148 163 184;
+  --slate-500: 100 116 139;
+  --slate-600: 71 85 105;
+  --slate-700: 30 41 59;
+  --slate-800: 15 23 42;
+  --slate-900: 2 6 23;
+
+  /* Color Palette - Blue */
+  --blue-400: 96 165 250;
+  --blue-500: 59 130 246;
+  --blue-600: 37 99 235;
+
+  /* Color Palette - Indigo */
+  --indigo-400: 129 140 248;
+  --indigo-500: 99 102 241;
+  --indigo-600: 79 70 229;
+
+  /* Color Palette - Red */
+  --red-500: 239 68 68;
 }
 
 [data-theme='dark'] {
@@ -94,7 +119,7 @@ button {
 .buttonGhost {
   border: none;
   background: transparent;
-  color: rgba(148, 163, 184, 0.7);
+  color: rgb(var(--slate-400) / 0.7);
   cursor: pointer;
   transition: all 0.2s ease;
   padding: 0.5rem;
@@ -107,24 +132,276 @@ button {
 .buttonGhost:hover,
 .buttonGhost:focus-visible {
   outline: none;
-  background: rgba(148, 163, 184, 0.1);
-  color: rgba(203, 213, 225, 0.9);
+  background: rgb(var(--slate-400) / 0.1);
+  color: rgb(var(--slate-300) / 0.9);
 }
 
 .buttonGhost:active {
-  background: rgba(148, 163, 184, 0.15);
+  background: rgb(var(--slate-400) / 0.15);
 }
 
 [data-theme='light'] .buttonGhost {
-  color: rgba(100, 116, 139, 0.7);
+  color: rgb(var(--slate-500) / 0.7);
 }
 
 [data-theme='light'] .buttonGhost:hover,
 [data-theme='light'] .buttonGhost:focus-visible {
-  background: rgba(148, 163, 184, 0.1);
-  color: rgba(71, 85, 105, 0.9);
+  background: rgb(var(--slate-400) / 0.1);
+  color: rgb(var(--slate-600) / 0.9);
 }
 
 [data-theme='light'] .buttonGhost:active {
-  background: rgba(148, 163, 184, 0.15);
+  background: rgb(var(--slate-400) / 0.15);
+}
+
+/* Utility Classes - Background Colors with Opacity */
+.bg-slate-50 {
+  background-color: rgb(var(--slate-50));
+}
+.bg-slate-100 {
+  background-color: rgb(var(--slate-100));
+}
+.bg-slate-200 {
+  background-color: rgb(var(--slate-200));
+}
+.bg-slate-300 {
+  background-color: rgb(var(--slate-300));
+}
+.bg-slate-400 {
+  background-color: rgb(var(--slate-400));
+}
+.bg-slate-500 {
+  background-color: rgb(var(--slate-500));
+}
+.bg-slate-600 {
+  background-color: rgb(var(--slate-600));
+}
+.bg-slate-700 {
+  background-color: rgb(var(--slate-700));
+}
+.bg-slate-800 {
+  background-color: rgb(var(--slate-800));
+}
+.bg-slate-900 {
+  background-color: rgb(var(--slate-900));
+}
+
+.bg-slate-50\/75 {
+  background-color: rgb(var(--slate-50) / 0.75);
+}
+.bg-slate-50\/85 {
+  background-color: rgb(var(--slate-50) / 0.85);
+}
+.bg-slate-50\/95 {
+  background-color: rgb(var(--slate-50) / 0.95);
+}
+.bg-slate-100\/75 {
+  background-color: rgb(var(--slate-100) / 0.75);
+}
+.bg-slate-100\/85 {
+  background-color: rgb(var(--slate-100) / 0.85);
+}
+.bg-slate-100\/90 {
+  background-color: rgb(var(--slate-100) / 0.9);
+}
+.bg-slate-100\/95 {
+  background-color: rgb(var(--slate-100) / 0.95);
+}
+.bg-slate-200\/10 {
+  background-color: rgb(var(--slate-200) / 0.1);
+}
+.bg-slate-200\/20 {
+  background-color: rgb(var(--slate-200) / 0.2);
+}
+.bg-slate-300\/10 {
+  background-color: rgb(var(--slate-300) / 0.1);
+}
+.bg-slate-400\/10 {
+  background-color: rgb(var(--slate-400) / 0.1);
+}
+.bg-slate-400\/15 {
+  background-color: rgb(var(--slate-400) / 0.15);
+}
+.bg-slate-400\/20 {
+  background-color: rgb(var(--slate-400) / 0.2);
+}
+.bg-slate-700\/75 {
+  background-color: rgb(var(--slate-700) / 0.75);
+}
+.bg-slate-700\/85 {
+  background-color: rgb(var(--slate-700) / 0.85);
+}
+.bg-slate-800\/75 {
+  background-color: rgb(var(--slate-800) / 0.75);
+}
+.bg-slate-800\/85 {
+  background-color: rgb(var(--slate-800) / 0.85);
+}
+.bg-slate-800\/95 {
+  background-color: rgb(var(--slate-800) / 0.95);
+}
+.bg-slate-900\/75 {
+  background-color: rgb(var(--slate-900) / 0.75);
+}
+.bg-slate-900\/85 {
+  background-color: rgb(var(--slate-900) / 0.85);
+}
+.bg-white\/95 {
+  background-color: rgb(255 255 255 / 0.95);
+}
+.bg-white\/98 {
+  background-color: rgb(255 255 255 / 0.98);
+}
+
+/* Utility Classes - Text Colors with Opacity */
+.text-slate-200 {
+  color: rgb(var(--slate-200));
+}
+.text-slate-300 {
+  color: rgb(var(--slate-300));
+}
+.text-slate-400 {
+  color: rgb(var(--slate-400));
+}
+.text-slate-500 {
+  color: rgb(var(--slate-500));
+}
+.text-slate-600 {
+  color: rgb(var(--slate-600));
+}
+.text-slate-700 {
+  color: rgb(var(--slate-700));
+}
+.text-white {
+  color: rgb(255 255 255);
+}
+
+.text-slate-200\/75 {
+  color: rgb(var(--slate-200) / 0.75);
+}
+.text-slate-200\/85 {
+  color: rgb(var(--slate-200) / 0.85);
+}
+.text-slate-300\/9 {
+  color: rgb(var(--slate-300) / 0.9);
+}
+.text-slate-400\/6 {
+  color: rgb(var(--slate-400) / 0.6);
+}
+.text-slate-400\/7 {
+  color: rgb(var(--slate-400) / 0.7);
+}
+.text-slate-400\/75 {
+  color: rgb(var(--slate-400) / 0.75);
+}
+.text-slate-400\/8 {
+  color: rgb(var(--slate-400) / 0.8);
+}
+.text-slate-500\/6 {
+  color: rgb(var(--slate-500) / 0.6);
+}
+.text-slate-500\/7 {
+  color: rgb(var(--slate-500) / 0.7);
+}
+.text-slate-600\/6 {
+  color: rgb(var(--slate-600) / 0.6);
+}
+.text-slate-600\/7 {
+  color: rgb(var(--slate-600) / 0.7);
+}
+.text-slate-600\/8 {
+  color: rgb(var(--slate-600) / 0.8);
+}
+.text-slate-600\/9 {
+  color: rgb(var(--slate-600) / 0.9);
+}
+
+/* Utility Classes - Border Colors with Opacity */
+.border-slate-200 {
+  border-color: rgb(var(--slate-200));
+}
+.border-slate-400 {
+  border-color: rgb(var(--slate-400));
+}
+
+.border-slate-200\/8 {
+  border-color: rgb(var(--slate-200) / 0.8);
+}
+.border-slate-400\/18 {
+  border-color: rgb(var(--slate-400) / 0.18);
+}
+.border-slate-400\/35 {
+  border-color: rgb(var(--slate-400) / 0.35);
+}
+.border-slate-400\/5 {
+  border-color: rgb(var(--slate-400) / 0.5);
+}
+
+/* Utility Classes - Blue Colors */
+.bg-blue-400 {
+  background-color: rgb(var(--blue-400));
+}
+.bg-blue-500 {
+  background-color: rgb(var(--blue-500));
+}
+.text-blue-400 {
+  color: rgb(var(--blue-400));
+}
+.text-blue-500 {
+  color: rgb(var(--blue-500));
+}
+.border-blue-400\/4 {
+  border-color: rgb(var(--blue-400) / 0.4);
+}
+.border-blue-400\/8 {
+  border-color: rgb(var(--blue-400) / 0.8);
+}
+.border-blue-500\/4 {
+  border-color: rgb(var(--blue-500) / 0.4);
+}
+.border-blue-500\/6 {
+  border-color: rgb(var(--blue-500) / 0.6);
+}
+
+/* Utility Classes - Indigo Colors */
+.bg-indigo-400 {
+  background-color: rgb(var(--indigo-400));
+}
+.bg-indigo-500 {
+  background-color: rgb(var(--indigo-500));
+}
+.border-indigo-400\/65 {
+  border-color: rgb(var(--indigo-400) / 0.65);
+}
+.border-indigo-400\/9 {
+  border-color: rgb(var(--indigo-400) / 0.9);
+}
+
+/* Utility Classes - Red Colors */
+.bg-red-500\/1 {
+  background-color: rgb(var(--red-500) / 0.1);
+}
+.bg-red-500\/15 {
+  background-color: rgb(var(--red-500) / 0.15);
+}
+.bg-red-500\/2 {
+  background-color: rgb(var(--red-500) / 0.2);
+}
+.bg-red-500\/3 {
+  background-color: rgb(var(--red-500) / 0.3);
+}
+.border-red-500\/3 {
+  border-color: rgb(var(--red-500) / 0.3);
+}
+.border-red-500\/4 {
+  border-color: rgb(var(--red-500) / 0.4);
+}
+.border-red-500\/5 {
+  border-color: rgb(var(--red-500) / 0.5);
+}
+.border-red-500\/6 {
+  border-color: rgb(var(--red-500) / 0.6);
+}
+.border-red-500\/7 {
+  border-color: rgb(var(--red-500) / 0.7);
 }
