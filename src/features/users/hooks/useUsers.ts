@@ -1,6 +1,6 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
 import { fetchUsers } from '@/features/users/api/userService';
 import type { UserSummary } from '@/features/users/types/user';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 const DEFAULT_LIMIT = 20;
 
@@ -13,7 +13,6 @@ export function useUsers() {
       return totalLoaded < lastPage.total ? totalLoaded : undefined;
     },
     initialPageParam: 0,
-    staleTime: 1000 * 60 * 5
   });
 
   // Flatten all pages into a single array of users
@@ -23,6 +22,6 @@ export function useUsers() {
     ...query,
     data: allUsers,
     total: query.data?.pages[0]?.total ?? 0,
-    hasNextPage: query.hasNextPage ?? false
+    hasNextPage: query.hasNextPage ?? false,
   };
 }
