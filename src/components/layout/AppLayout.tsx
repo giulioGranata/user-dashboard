@@ -1,9 +1,11 @@
 import type { PropsWithChildren } from 'react';
 import styles from './AppLayout.module.css';
+import { ThemeToggle } from './ThemeToggle';
 
 export function AppLayout({ children }: PropsWithChildren) {
   return (
     <div className={styles.root}>
+      <ThemeToggle />
       <div className={styles.inner}>
         <header className={styles.header}>
           <h1 className={styles.title}>Team Directory</h1>

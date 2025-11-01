@@ -47,25 +47,44 @@ export function UserDashboard() {
         onRoleChange={setRole}
         total={filteredUsers.length}
       />
-      {isLoading && <Spinner label="Loading users" />}
+      {isLoading && (
+        <div className={styles.loadingState} role="status" aria-live="polite">
+          <Spinner label="Loading users" />
+          <p className={styles.loadingText}>Fetching team members...</p>
+        </div>
+      )}
       {isError && (
-        <div role="alert" className={styles.emptyState}>
-          <h3>We could not load the users</h3>
-          <p>Please check your connection and try again.</p>
-          <button type="button" onClick={() => refetch()}>
+        <div role="alert" className={styles.errorState} aria-live="assertive">
+          <div className={styles.errorIcon} aria-hidden="true">
+            ⚠️
+          </div>
+          <h3 className={styles.errorTitle}>We could not load the users</h3>
+          <p className={styles.errorMessage}>Please check your connection and try again.</p>
+          <button
+            type="button"
+            onClick={() => refetch()}
+            className={styles.retryButton}
+            aria-label="Retry loading users"
+          >
             Retry
           </button>
         </div>
       )}
-      {filteredUsers.length === 0 && !isLoading ? (
-        <div className={styles.emptyState}>
-          <h3>No users match your filters</h3>
-          <p>Try updating the search term or selecting a different role.</p>
+      {!isLoading && !isError && filteredUsers.length === 0 && (
+        <div className={styles.emptyState} role="status" aria-live="polite">
+          <div className={styles.emptyIcon} aria-hidden="true">
+            🔍
+          </div>
+          <h3 className={styles.emptyTitle}>No users match your filters</h3>
+          <p className={styles.emptyMessage}>
+            Try updating the search term or selecting a different role.
+          </p>
         </div>
-      ) : (
+      )}
+      {!isLoading && !isError && filteredUsers.length > 0 && (
         <UserList
           users={filteredUsers}
-          isLoading={isLoading}
+          isLoading={false}
           selectedUserId={selectedUser?.id}
           onSelectUser={handleSelectUser}
         />

@@ -1,0 +1,48 @@
+.toggle {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(10px);
+  color: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 100;
+  font-size: 1.25rem;
+}
+
+.toggle:hover,
+.toggle:focus-visible {
+  border-color: rgba(96, 165, 250, 0.8);
+  background: rgba(15, 23, 42, 0.95);
+  outline: none;
+  transform: scale(1.1);
+  box-shadow: 0 8px 24px rgba(96, 165, 250, 0.3);
+}
+
+.icon {
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.toggle:hover .icon {
+  transform: rotate(15deg);
+}
+
+@media (max-width: 768px) {
+  .toggle {
+    top: 1rem;
+    right: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1rem;
+  }
+}
+

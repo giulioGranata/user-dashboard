@@ -21,8 +21,13 @@ export function UserDetailPanel({ user, isLoading }: UserDetailPanelProps) {
   }
 
   return (
-    <div className={styles.panel}>
-      <img src={user.avatarUrl} alt={`${user.fullName} avatar`} className={styles.avatar} />
+    <div className={styles.panel} id="user-profile-details">
+      <img 
+        src={user.avatarUrl} 
+        alt={`${user.fullName} avatar`} 
+        className={styles.avatar}
+        loading="lazy"
+      />
       <div>
         <h3 className={styles.name}>{user.fullName}</h3>
         <p className={styles.metaValue}>{user.status}</p>

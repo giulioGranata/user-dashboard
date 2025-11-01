@@ -9,6 +9,27 @@
   min-height: 0;
 }
 
+[data-theme='light'] .dashboard {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 1.25rem;
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard {
+    padding: 1rem;
+    gap: 1rem;
+    border-radius: 0.75rem;
+  }
+}
+
 .sectionTitle {
   font-size: 1rem;
   font-weight: 600;
@@ -17,19 +38,88 @@
   color: rgba(226, 232, 240, 0.65);
 }
 
+.loadingState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.loadingText {
+  color: rgba(226, 232, 240, 0.75);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.errorState {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 1rem;
+}
+
+.errorIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.errorTitle {
+  font-size: 1.25rem;
+  margin: 0 0 0.75rem 0;
+  color: #f8fafc;
+  font-weight: 600;
+}
+
+.errorMessage {
+  margin: 0 0 1.5rem 0;
+  color: rgba(226, 232, 240, 0.85);
+  font-size: 0.95rem;
+}
+
+.retryButton {
+  padding: 0.75rem 1.5rem;
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  border-radius: 0.5rem;
+  color: #f8fafc;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.retryButton:hover,
+.retryButton:focus-visible {
+  background: rgba(239, 68, 68, 0.3);
+  border-color: rgba(239, 68, 68, 0.7);
+  outline: none;
+  transform: translateY(-1px);
+}
+
 .emptyState {
   text-align: center;
+  padding: 3rem 2rem;
   color: rgba(226, 232, 240, 0.75);
-  padding: 2rem 0;
 }
 
-.emptyState h3 {
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
+.emptyIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.7;
+}
+
+.emptyTitle {
+  font-size: 1.25rem;
+  margin: 0 0 0.75rem 0;
   color: #f8fafc;
+  font-weight: 600;
 }
 
-.emptyState p {
+.emptyMessage {
   margin: 0;
   color: rgba(226, 232, 240, 0.75);
+  font-size: 0.95rem;
 }

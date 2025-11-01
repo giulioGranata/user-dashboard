@@ -4,6 +4,12 @@
   gap: 1rem;
 }
 
+@media (min-width: 640px) {
+  .filters {
+    gap: 1.25rem;
+  }
+}
+
 .searchField {
   position: relative;
 }
@@ -29,6 +35,17 @@
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+  .roles {
+    gap: 0.4rem;
+  }
+
+  .roleButton {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.875rem;
+  }
 }
 
 .roleButton {
