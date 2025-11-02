@@ -1,9 +1,9 @@
+import { useEffect, useState } from 'react';
 import { SearchIcon, WarningIcon } from '@/components/icons';
 import { Spinner } from '@/components/users/Spinner';
 import { useUserFilters } from '@/features/users/hooks/useUserFilters';
 import { useUsers } from '@/features/users/hooks/useUsers';
 import type { UserSummary } from '@/features/users/types/user';
-import { useEffect, useState } from 'react';
 import styles from './UserDashboard.module.css';
 import { UserDetailModal } from './UserDetailModal';
 import { UserFilters } from './UserFilters';
@@ -15,26 +15,13 @@ export function UserDashboard() {
     isLoading,
     isError,
     refetch,
-    total,
-    currentPage,
-    totalPages,
+    fetchNextPage,
     hasNextPage,
-    hasPreviousPage,
-    goToNextPage,
-    goToPreviousPage,
-    goToPage,
+    isFetchingNextPage
   } = useUsers();
   const { filters, filteredUsers, setRole, setSearch } = useUserFilters(users);
   const [selectedUser, setSelectedUser] = useState<UserSummary | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Reset to first page when filters change
-  useEffect(() => {
-    if (currentPage !== 0) {
-      goToPage(0);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters.role, filters.search]);
 
   useEffect(() => {
     if (!selectedUser) {
@@ -101,36 +88,14 @@ export function UserDashboard() {
         </div>
       )}
       {!isLoading && !isError && filteredUsers.length > 0 && (
-        <>
-          <UserList
-            users={filteredUsers}
-            selectedUserId={selectedUser?.id}
-            onSelectUser={handleSelectUser}
-          />
-          <div className={styles.pagination} role="navigation" aria-label="Pagination">
-            <button
-              type="button"
-              onClick={goToPreviousPage}
-              disabled={!hasPreviousPage || isLoading}
-              className={styles.paginationButton}
-              aria-label="Go to previous page"
-            >
-              Previous
-            </button>
-            <span className={styles.paginationInfo} aria-live="polite">
-              Page {currentPage + 1} of {totalPages} ({total} total users)
-            </span>
-            <button
-              type="button"
-              onClick={goToNextPage}
-              disabled={!hasNextPage || isLoading}
-              className={styles.paginationButton}
-              aria-label="Go to next page"
-            >
-              Next
-            </button>
-          </div>
-        </>
+        <UserList
+          users={filteredUsers}
+          isLoading={isFetchingNextPage}
+          selectedUserId={selectedUser?.id}
+          onSelectUser={handleSelectUser}
+          hasNextPage={hasNextPage}
+          onLoadMore={fetchNextPage}
+        />
       )}
       {selectedUser && isModalOpen && (
         <UserDetailModal user={selectedUser} onClose={handleCloseModal} />

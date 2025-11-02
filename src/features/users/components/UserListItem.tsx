@@ -7,6 +7,7 @@ interface UserListItemProps {
   user: UserSummary;
   isActive: boolean;
   onSelect: () => void;
+  disabled?: boolean;
 }
 
 const roleColors: Record<UserSummary['role'], { bg: string; text: string }> = {
@@ -15,7 +16,7 @@ const roleColors: Record<UserSummary['role'], { bg: string; text: string }> = {
   viewer: { bg: 'rgba(148, 163, 184, 0.15)', text: '#cbd5e1' },
 };
 
-export function UserListItem({ user, isActive, onSelect }: UserListItemProps) {
+export function UserListItem({ user, isActive, onSelect, disabled }: UserListItemProps) {
   const roleColor = roleColors[user.role];
 
   const handleViewDetails = (e: React.MouseEvent) => {
@@ -25,7 +26,7 @@ export function UserListItem({ user, isActive, onSelect }: UserListItemProps) {
 
   return (
     <div
-      className={clsx(styles.item, isActive && styles.itemActive)}
+      className={clsx(styles.item, isActive && styles.itemActive, disabled && styles.disabled)}
       role="listitem"
       onClick={onSelect}
     >
@@ -48,6 +49,7 @@ export function UserListItem({ user, isActive, onSelect }: UserListItemProps) {
         type="button"
         className={clsx('buttonGhost', styles.ctaButton)}
         onClick={handleViewDetails}
+        disabled={disabled}
         aria-label={`View details for ${user.fullName}`}
         title="View details"
       >

@@ -9,44 +9,20 @@ import ReactDOM from 'react-dom/client';
     - no auto-refetch on focus,
     - single retry on error (to avoid infinite loops)
 */
-// Preserve QueryClient across HMR updates
-let queryClient: QueryClient;
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 1,
+      staleTime: 1000 * 60 * 5,
+    },
+  },
+});
 
-function getQueryClient() {
-  if (!queryClient) {
-    queryClient = new QueryClient({
-      defaultOptions: {
-        queries: {
-          refetchOnWindowFocus: false,
-          retry: 1,
-          staleTime: 1000 * 60 * 5,
-        },
-      },
-    });
-  }
-  return queryClient;
-}
-
-const rootElement = document.getElementById('root');
-if (!rootElement) {
-  throw new Error('Root element not found');
-}
-
-const root = ReactDOM.createRoot(rootElement);
-
-function renderApp() {
-  root.render(
-    <QueryClientProvider client={getQueryClient()}>
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
       <App />
     </QueryClientProvider>
-  );
-}
-
-renderApp();
-
-// Enable HMR for this module
-if (import.meta.hot) {
-  import.meta.hot.accept('./App', () => {
-    renderApp();
-  });
-}
+  </React.StrictMode>,
+);
