@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react';
 import { SearchIcon, WarningIcon } from '@/components/icons';
 import { Spinner } from '@/components/users/Spinner';
-import { useUserFilters } from '@/features/users/hooks/useUserFilters';
+import { UserFiltersState } from '@/features/users/hooks/useUserFilters';
 import { useUsers } from '@/features/users/hooks/useUsers';
 import type { UserSummary } from '@/features/users/types/user';
+import { useEffect, useState } from 'react';
 import styles from './UserDashboard.module.css';
 import { UserDetailModal } from './UserDetailModal';
 import { UserFilters } from './UserFilters';
 import { UserList } from './UserList';
 
 export function UserDashboard() {
+  const [filters, setFilters] = useState<UserFiltersState>({ search: '', role: 'all' });
+
   const {
     data: users = [],
     isLoading,
@@ -17,9 +19,15 @@ export function UserDashboard() {
     refetch,
     fetchNextPage,
     hasNextPage,
-    isFetchingNextPage
-  } = useUsers();
-  const { filters, filteredUsers, setRole, setSearch } = useUserFilters(users);
+    isFetchingNextPage,
+  } = useUsers({ search: filters.search, role: filters.role });
+
+  const filteredUsers = users.filter((user) => {
+    const matchesSearch = user.fullName.toLowerCase().includes(filters.search.toLowerCase());
+    const matchesRole = filters.role === 'all' ? true : user.role === filters.role;
+    return matchesSearch && matchesRole;
+  });
+
   const [selectedUser, setSelectedUser] = useState<UserSummary | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -49,8 +57,8 @@ export function UserDashboard() {
     <section className={styles.dashboard} aria-labelledby="user-directory">
       <UserFilters
         filters={filters}
-        onSearchChange={setSearch}
-        onRoleChange={setRole}
+        onSearchChange={(value) => setFilters({ ...filters, search: value })}
+        onRoleChange={(role) => setFilters({ ...filters, role })}
         total={filteredUsers.length}
       />
       {isLoading && (

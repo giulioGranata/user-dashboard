@@ -1,4 +1,4 @@
-export type UserRole = 'admin' | 'manager' | 'viewer';
+export type UserRole = 'admin' | 'moderator' | 'user' | 'all';
 
 export interface UserSummary {
   id: number;
@@ -16,7 +16,8 @@ export interface UserResponse {
   firstName: string;
   lastName: string;
   email: string;
-  role?: string;
+  username: string;
+  role: string;
   image?: string;
   phone?: string;
   address?: {

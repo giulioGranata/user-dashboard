@@ -12,7 +12,7 @@ interface UserFiltersProps {
   total: number;
 }
 
-const ROLES: UserFiltersState['role'][] = ['all', 'admin', 'manager', 'viewer'];
+const ROLES: UserFiltersState['role'][] = ['all', 'admin', 'moderator', 'user'];
 
 const MIN_SEARCH_LENGTH = 3;
 

@@ -1,13 +1,19 @@
 import { fetchUsers } from '@/features/users/api/userService';
-import type { UserSummary } from '@/features/users/types/user';
+import type { UserRole, UserSummary } from '@/features/users/types/user';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 const DEFAULT_LIMIT = 20;
 
-export function useUsers() {
+type Props = {
+  search?: string;
+  role?: UserRole;
+};
+
+export function useUsers({ search, role }: Props) {
   const query = useInfiniteQuery({
-    queryKey: ['users'],
-    queryFn: ({ pageParam = 0 }) => fetchUsers({ skip: pageParam, limit: DEFAULT_LIMIT }),
+    queryKey: ['users', search, role],
+    queryFn: ({ pageParam = 0 }) =>
+      fetchUsers({ skip: pageParam, limit: DEFAULT_LIMIT, search, role }),
     getNextPageParam: (lastPage, allPages) => {
       const totalLoaded = allPages.reduce((sum, page) => sum + page.users.length, 0);
       return totalLoaded < lastPage.total ? totalLoaded : undefined;

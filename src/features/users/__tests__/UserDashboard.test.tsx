@@ -27,7 +27,7 @@ const mockUsers = [
     firstName: 'Grace',
     lastName: 'Hopper',
     email: 'grace@example.com',
-    role: 'manager',
+    role: 'moderator',
     image: 'https://example.com/grace.png',
   },
   {
@@ -35,7 +35,7 @@ const mockUsers = [
     firstName: 'Alan',
     lastName: 'Turing',
     email: 'alan@example.com',
-    role: 'viewer',
+    role: 'user',
     image: 'https://example.com/alan.png',
   },
 ];
@@ -56,9 +56,9 @@ function setupUserService(users = mockUsers) {
     id: user.id,
     fullName: `${user.firstName} ${user.lastName}`.trim(),
     email: user.email,
-    role: user.role as 'admin' | 'manager' | 'viewer',
+    role: user.role as 'admin' | 'moderator' | 'user',
     status: 'Active' as const,
-    avatarUrl: user.image || `https://api.dicebear.com/7.x/initials/svg?seed=${user.firstName}`,
+    avatarUrl: user.image || `https://picsum.photos/seed/${user.firstName.toLowerCase()}/128`,
     phone: 'N/A',
     location: 'Remote',
   }));
@@ -103,7 +103,7 @@ describe('UserDashboard', () => {
 
     await waitFor(() => screen.getByRole('button', { name: /view details for ada lovelace/i }));
 
-    fireEvent.click(screen.getByRole('button', { name: /manager/i }));
+    fireEvent.click(screen.getByRole('button', { name: /moderator/i }));
 
     expect(
       screen.getByRole('button', { name: /view details for grace hopper/i }),
@@ -184,10 +184,10 @@ describe('UserDashboard', () => {
       id: user.id,
       fullName: `${user.firstName} ${user.lastName}`.trim(),
       email: user.email,
-      role: user.role as 'admin' | 'manager' | 'viewer',
+      role: user.role as 'admin' | 'moderator' | 'user',
       status: 'Active' as const,
       avatarUrl:
-        user.image || `https://api.dicebear.com/7.x/initials/svg?seed=${user.firstName}`,
+        user.image || `https://picsum.photos/seed/${user.firstName.toLowerCase()}/128`,
       phone: 'N/A',
       location: 'Remote',
     }));
@@ -310,8 +310,8 @@ describe('UserDashboard', () => {
       expect(screen.getByRole('dialog')).toBeInTheDocument();
     });
 
-    // Filter to only show managers (Grace, not Ada)
-    fireEvent.click(screen.getByRole('button', { name: /manager/i }));
+    // Filter to only show moderators (Grace, not Ada)
+    fireEvent.click(screen.getByRole('button', { name: /moderator/i }));
 
     await waitFor(() => {
       expect(screen.queryByRole('dialog')).not.toBeInTheDocument();

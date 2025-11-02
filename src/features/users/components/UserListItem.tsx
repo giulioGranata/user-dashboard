@@ -1,6 +1,6 @@
-import clsx from 'clsx';
 import { EyeIcon } from '@/components/icons';
 import type { UserSummary } from '@/features/users/types/user';
+import clsx from 'clsx';
 import styles from './UserListItem.module.css';
 
 interface UserListItemProps {
@@ -12,8 +12,9 @@ interface UserListItemProps {
 
 const roleColors: Record<UserSummary['role'], { bg: string; text: string }> = {
   admin: { bg: 'rgba(239, 68, 68, 0.15)', text: '#fca5a5' },
-  manager: { bg: 'rgba(251, 191, 36, 0.15)', text: '#fcd34d' },
-  viewer: { bg: 'rgba(148, 163, 184, 0.15)', text: '#cbd5e1' },
+  moderator: { bg: 'rgba(251, 191, 36, 0.15)', text: '#fcd34d' },
+  user: { bg: 'rgba(148, 163, 184, 0.15)', text: '#cbd5e1' },
+  all: { bg: 'rgba(148, 163, 184, 0.15)', text: '#cbd5e1' }, // Fallback, shouldn't be used
 };
 
 export function UserListItem({ user, isActive, onSelect, disabled }: UserListItemProps) {
@@ -32,7 +33,7 @@ export function UserListItem({ user, isActive, onSelect, disabled }: UserListIte
     >
       <div className={styles.info}>
         <div className={styles.header}>
-        <span className={styles.name}>{user.fullName}</span>
+          <span className={styles.name}>{user.fullName}</span>
           <span
             className={styles.role}
             style={{
@@ -55,7 +56,7 @@ export function UserListItem({ user, isActive, onSelect, disabled }: UserListIte
       >
         <EyeIcon />
         <span className="visuallyHidden">View details</span>
-    </button>
+      </button>
     </div>
   );
 }

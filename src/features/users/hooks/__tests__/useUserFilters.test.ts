@@ -18,7 +18,7 @@ const mockUsers: UserSummary[] = [
     id: 2,
     fullName: 'Grace Hopper',
     email: 'grace@example.com',
-    role: 'manager',
+    role: 'moderator',
     status: 'Active',
     avatarUrl: 'https://example.com/grace.png',
     phone: '123-456-7891',
@@ -28,7 +28,7 @@ const mockUsers: UserSummary[] = [
     id: 3,
     fullName: 'Alan Turing',
     email: 'alan@example.com',
-    role: 'viewer',
+    role: 'user',
     status: 'Inactive',
     avatarUrl: 'https://example.com/alan.png',
     phone: '123-456-7892',
@@ -38,7 +38,7 @@ const mockUsers: UserSummary[] = [
     id: 4,
     fullName: 'Ada Wong',
     email: 'ada.wong@example.com',
-    role: 'manager',
+    role: 'moderator',
     status: 'Active',
     avatarUrl: 'https://example.com/ada-wong.png',
     phone: '123-456-7893',
@@ -108,7 +108,7 @@ describe('useUserFilters', () => {
     const { result } = renderHook(() => useUserFilters(mockUsers));
 
     act(() => {
-      result.current.setRole('viewer');
+      result.current.setRole('user');
       result.current.setSearch('nonexistent');
     });
 
@@ -137,11 +137,11 @@ describe('useUserFilters', () => {
     expect(result.current.filters.role).toBe('all');
 
     act(() => {
-      result.current.setRole('manager');
+      result.current.setRole('moderator');
     });
 
     expect(result.current.filters.search).toBe('grace');
-    expect(result.current.filters.role).toBe('manager');
+    expect(result.current.filters.role).toBe('moderator');
     expect(result.current.filteredUsers).toHaveLength(1);
     expect(result.current.filteredUsers[0].fullName).toBe('Grace Hopper');
   });

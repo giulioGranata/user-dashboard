@@ -1,32 +1,14 @@
-import axios from 'axios';
 import type { UserResponse, UserRole, UserSummary } from '@/features/users/types/user';
+import axios from 'axios';
 
-const BASE_API_URL = 'https://dummyjson.com/users';
+const BASE_API_URL = 'https://dummyjson.com';
 const DEFAULT_LIMIT = 20;
-
-const FALLBACK_ROLES: UserRole[] = ['admin', 'manager', 'viewer'];
 
 export interface FetchUsersParams {
   skip?: number;
   limit?: number;
-}
-
-function normalizeRole(role?: string): UserRole {
-  if (!role) {
-    return FALLBACK_ROLES[Math.floor(Math.random() * FALLBACK_ROLES.length)];
-  }
-
-  const normalized = role.toLowerCase();
-
-  if (normalized === 'admin' || normalized === 'viewer') {
-    return normalized;
-  }
-
-  if (normalized === 'manager' || normalized === 'moderator') {
-    return 'manager';
-  }
-
-  return 'viewer';
+  search?: string;
+  role?: UserRole;
 }
 
 function deriveStatus(id: number): UserSummary['status'] {
@@ -50,7 +32,23 @@ export async function fetchUsers(params?: FetchUsersParams): Promise<{
   try {
     const skip = params?.skip ?? 0;
     const limit = params?.limit ?? DEFAULT_LIMIT;
-    const url = `${BASE_API_URL}?skip=${skip}&limit=${limit}`;
+    const search = params?.search?.trim();
+    const role = params?.role && params.role !== 'all' ? params.role : undefined;
+
+    // Build URL based on filters
+    let url: string;
+    const skipAndLimit = `&limit=${limit}&skip=${skip}`;
+
+    if (search && search.length >= 3) {
+      // Search endpoint: /users/search?q=<query>
+      url = `${BASE_API_URL}/users/search?q=${encodeURIComponent(search)}${skipAndLimit}`;
+    } else if (role) {
+      // Filter endpoint: /users/filter?key=role&value=<role>
+      url = `${BASE_API_URL}/users/filter?key=role&value=${role}${skipAndLimit}`;
+    } else {
+      // Default endpoint: /users
+      url = `${BASE_API_URL}/users${skipAndLimit}`;
+    }
 
     const response = await axios.get<{
       users: UserResponse[];
@@ -59,24 +57,31 @@ export async function fetchUsers(params?: FetchUsersParams): Promise<{
       limit: number;
     }>(url);
 
-    const normalizedUsers = response.data.users.map((user) => ({
+    let users = response.data.users;
+    let total = response.data.total;
+
+    // Apply client-side role filter if both search and role are present
+    if (search && role) {
+      users = users.filter((user) => user.role.toLowerCase() === role.toLowerCase());
+      total = users.length;
+    }
+
+    const normalizedUsers: UserSummary[] = users.map((user) => ({
       id: user.id,
       fullName: `${user.firstName} ${user.lastName}`.trim(),
       email: user.email,
-      role: normalizeRole(user.role),
+      role: user.role.toLowerCase() as UserRole,
       status: deriveStatus(user.id),
-      avatarUrl:
-        user.image ??
-        `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.firstName ?? 'User')}`,
+      avatarUrl: user.image || `https://picsum.photos/seed/${user.username}/128`,
       phone: user.phone ?? 'N/A',
-      location: formatLocation(user) || 'Remote'
+      location: formatLocation(user) || 'Remote',
     }));
 
     return {
       users: normalizedUsers,
-      total: response.data.total,
+      total,
       skip: response.data.skip,
-      limit: response.data.limit
+      limit: response.data.limit,
     };
   } catch (error) {
     if (axios.isAxiosError(error)) {
