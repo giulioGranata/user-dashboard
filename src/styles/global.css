@@ -50,6 +50,19 @@
 
   /* Color Palette - Red */
   --red-500: 239 68 68;
+  --red-400: 252 165 165;
+
+  /* Color Palette - Amber/Yellow */
+  --amber-500: 251 191 36;
+  --amber-400: 252 211 77;
+
+  /* Role Badge Colors */
+  --role-admin-bg: rgba(239, 68, 68, 0.15);
+  --role-admin-text: #fca5a5;
+  --role-moderator-bg: rgba(251, 191, 36, 0.15);
+  --role-moderator-text: #fcd34d;
+  --role-user-bg: rgba(148, 163, 184, 0.15);
+  --role-user-text: #cbd5e1;
 }
 
 [data-theme='dark'] {

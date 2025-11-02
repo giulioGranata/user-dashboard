@@ -1,6 +1,7 @@
 import { EyeIcon } from '@/components/icons';
 import type { UserSummary } from '@/features/users/types/user';
 import clsx from 'clsx';
+import type { MouseEvent } from 'react';
 import styles from './UserListItem.module.css';
 
 interface UserListItemProps {
@@ -10,17 +11,8 @@ interface UserListItemProps {
   disabled?: boolean;
 }
 
-const roleColors: Record<UserSummary['role'], { bg: string; text: string }> = {
-  admin: { bg: 'rgba(239, 68, 68, 0.15)', text: '#fca5a5' },
-  moderator: { bg: 'rgba(251, 191, 36, 0.15)', text: '#fcd34d' },
-  user: { bg: 'rgba(148, 163, 184, 0.15)', text: '#cbd5e1' },
-  all: { bg: 'rgba(148, 163, 184, 0.15)', text: '#cbd5e1' }, // Fallback, shouldn't be used
-};
-
 export function UserListItem({ user, isActive, onSelect, disabled }: UserListItemProps) {
-  const roleColor = roleColors[user.role];
-
-  const handleViewDetails = (e: React.MouseEvent) => {
+  const handleViewDetails = (e: MouseEvent) => {
     e.stopPropagation();
     onSelect();
   };
@@ -34,13 +26,7 @@ export function UserListItem({ user, isActive, onSelect, disabled }: UserListIte
       <div className={styles.info}>
         <div className={styles.header}>
           <span className={styles.name}>{user.fullName}</span>
-          <span
-            className={styles.role}
-            style={{
-              backgroundColor: roleColor.bg,
-              color: roleColor.text,
-            }}
-          >
+          <span className={styles.role} data-role={user.role}>
             {user.role}
           </span>
         </div>

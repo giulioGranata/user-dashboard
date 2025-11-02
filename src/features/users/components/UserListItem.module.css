@@ -128,6 +128,27 @@
   transform: scale(1.05);
 }
 
+/* Role-specific colors using CSS variables */
+.role[data-role='admin'] {
+  background-color: var(--role-admin-bg);
+  color: var(--role-admin-text);
+}
+
+.role[data-role='moderator'] {
+  background-color: var(--role-moderator-bg);
+  color: var(--role-moderator-text);
+}
+
+.role[data-role='user'] {
+  background-color: var(--role-user-bg);
+  color: var(--role-user-text);
+}
+
+.role[data-role='all'] {
+  background-color: var(--role-user-bg);
+  color: var(--role-user-text);
+}
+
 .ctaButton {
   flex-shrink: 0;
   width: 2.5rem;

@@ -1,6 +1,6 @@
 import { SearchIcon } from '@/components/icons';
 import { useDebounce } from '@/features/users/hooks/useDebounce';
-import type { UserFiltersState } from '@/features/users/hooks/useUserFilters';
+import type { UserFiltersState } from '@/features/users/types/filters';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import styles from './UserFilters.module.css';

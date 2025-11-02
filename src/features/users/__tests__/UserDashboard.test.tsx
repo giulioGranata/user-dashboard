@@ -62,11 +62,28 @@ function setupUserService(users = mockUsers) {
     location: 'Remote',
   }));
 
-  vi.mocked(userService.fetchUsers).mockResolvedValue({
-    users: normalizedUsers,
-    total: normalizedUsers.length,
-    skip: 0,
-    limit: 20,
+  vi.mocked(userService.fetchUsers).mockImplementation((params) => {
+    let filteredUsers = normalizedUsers;
+
+    // Apply role filtering
+    if (params?.role && params.role !== 'all') {
+      filteredUsers = filteredUsers.filter((user) => user.role === params.role);
+    }
+
+    // Apply search filtering
+    if (params?.search && params.search.length >= 3) {
+      const searchLower = params.search.toLowerCase();
+      filteredUsers = filteredUsers.filter((user) =>
+        user.fullName.toLowerCase().includes(searchLower),
+      );
+    }
+
+    return Promise.resolve({
+      users: filteredUsers,
+      total: filteredUsers.length,
+      skip: params?.skip ?? 0,
+      limit: params?.limit ?? 20,
+    });
   });
 }
 
@@ -104,9 +121,11 @@ describe('UserDashboard', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /moderator/i }));
 
-    expect(
-      screen.getByRole('button', { name: /view details for grace hopper/i }),
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        screen.getByRole('button', { name: /view details for grace hopper/i }),
+      ).toBeInTheDocument();
+    });
     expect(
       screen.queryByRole('button', { name: /view details for ada lovelace/i }),
     ).not.toBeInTheDocument();
@@ -132,7 +151,7 @@ describe('UserDashboard', () => {
           screen.queryByRole('button', { name: /view details for grace hopper/i }),
         ).not.toBeInTheDocument();
       },
-      { timeout: 500 },
+      { timeout: 1000 },
     );
   });
 
@@ -149,7 +168,7 @@ describe('UserDashboard', () => {
       () => {
         expect(screen.getByText(/no users match your filters/i)).toBeInTheDocument();
       },
-      { timeout: 500 },
+      { timeout: 1000 },
     );
   });
 

@@ -1,9 +1,9 @@
-import { SearchIcon } from '@/components/icons';
 import { Spinner } from '@/components/users/Spinner';
-import { UserFiltersState } from '@/features/users/hooks/useUserFilters';
 import { useUsers } from '@/features/users/hooks/useUsers';
+import type { UserFiltersState } from '@/features/users/types/filters';
 import type { UserSummary } from '@/features/users/types/user';
 import { useEffect, useState } from 'react';
+import { EmptyState } from './EmptyState';
 import { ErrorState } from './ErrorState';
 import styles from './UserDashboard.module.css';
 import { UserDetailModal } from './UserDetailModal';
@@ -23,12 +23,6 @@ export function UserDashboard() {
     isFetchingNextPage,
   } = useUsers({ search: filters.search, role: filters.role });
 
-  const filteredUsers = users.filter((user) => {
-    const matchesSearch = user.fullName.toLowerCase().includes(filters.search.toLowerCase());
-    const matchesRole = filters.role === 'all' ? true : user.role === filters.role;
-    return matchesSearch && matchesRole;
-  });
-
   const [selectedUser, setSelectedUser] = useState<UserSummary | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -37,13 +31,13 @@ export function UserDashboard() {
       return;
     }
 
-    const stillVisible = filteredUsers.some((user) => user.id === selectedUser.id);
+    const stillVisible = users.some((user) => user.id === selectedUser.id);
 
     if (!stillVisible) {
       setSelectedUser(null);
       setIsModalOpen(false);
     }
-  }, [filteredUsers, selectedUser]);
+  }, [users, selectedUser]);
 
   const handleSelectUser = (user: UserSummary) => {
     setSelectedUser(user);
@@ -60,7 +54,7 @@ export function UserDashboard() {
         filters={filters}
         onSearchChange={(value) => setFilters({ ...filters, search: value })}
         onRoleChange={(role) => setFilters({ ...filters, role })}
-        total={filteredUsers.length}
+        total={users.length}
       />
       {isLoading && (
         <div className={styles.loadingState} role="status" aria-live="polite">
@@ -74,20 +68,15 @@ export function UserDashboard() {
           onRetry={() => refetch()}
         />
       )}
-      {!isLoading && !isError && filteredUsers.length === 0 && (
-        <div className={styles.emptyState} role="status" aria-live="polite">
-          <div className={styles.emptyIcon} aria-hidden="true">
-            <SearchIcon width={48} height={48} />
-          </div>
-          <h3 className={styles.emptyTitle}>No users match your filters</h3>
-          <p className={styles.emptyMessage}>
-            Try updating the search term or selecting a different role.
-          </p>
-        </div>
+      {!isLoading && !isError && users.length === 0 && (
+        <EmptyState
+          title="No users match your filters"
+          message="Try updating the search term or selecting a different role."
+        />
       )}
-      {!isLoading && !isError && filteredUsers.length > 0 && (
+      {!isLoading && !isError && users.length > 0 && (
         <UserList
-          users={filteredUsers}
+          users={users}
           isLoading={isFetchingNextPage}
           selectedUserId={selectedUser?.id}
           onSelectUser={handleSelectUser}

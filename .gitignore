@@ -9,8 +9,7 @@ coverage
 
 # Compiled files
 *.js
-!vite.config.js
-!vite.config.*.js
+!eslint.config.js
 *.js.map
 *.d.ts
 !src/**/*.d.ts
