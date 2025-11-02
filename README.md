@@ -2,6 +2,8 @@
 
 A responsive and accessible React + TypeScript dashboard for browsing users, filtering by role, and reviewing individual profiles.
 
+![User Dashboard Screenshot](./screenshot.png)
+
 ## Features
 
 - **User List Display** - Fetch and display users from API
