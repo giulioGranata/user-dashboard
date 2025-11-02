@@ -5,7 +5,6 @@ export interface UserSummary {
   fullName: string;
   email: string;
   role: UserRole;
-  status: 'Active' | 'Inactive' | 'Out of office';
   avatarUrl: string;
   phone: string;
   location: string;

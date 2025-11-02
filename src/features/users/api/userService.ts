@@ -11,11 +11,6 @@ export interface FetchUsersParams {
   role?: UserRole;
 }
 
-function deriveStatus(id: number): UserSummary['status'] {
-  const statuses: UserSummary['status'][] = ['Active', 'Inactive', 'Out of office'];
-  return statuses[id % statuses.length];
-}
-
 function formatLocation(user: UserResponse): string {
   const city = user.address?.city;
   const state = user.address?.state;
@@ -37,17 +32,17 @@ export async function fetchUsers(params?: FetchUsersParams): Promise<{
 
     // Build URL based on filters
     let url: string;
-    const skipAndLimit = `&limit=${limit}&skip=${skip}`;
+    const skipAndLimit = `limit=${limit}&skip=${skip}`;
 
     if (search && search.length >= 3) {
       // Search endpoint: /users/search?q=<query>
-      url = `${BASE_API_URL}/users/search?q=${encodeURIComponent(search)}${skipAndLimit}`;
+      url = `${BASE_API_URL}/users/search?q=${encodeURIComponent(search)}&${skipAndLimit}`;
     } else if (role) {
       // Filter endpoint: /users/filter?key=role&value=<role>
-      url = `${BASE_API_URL}/users/filter?key=role&value=${role}${skipAndLimit}`;
+      url = `${BASE_API_URL}/users/filter?key=role&value=${role}&${skipAndLimit}`;
     } else {
       // Default endpoint: /users
-      url = `${BASE_API_URL}/users${skipAndLimit}`;
+      url = `${BASE_API_URL}/users/?${skipAndLimit}`;
     }
 
     const response = await axios.get<{
@@ -71,7 +66,6 @@ export async function fetchUsers(params?: FetchUsersParams): Promise<{
       fullName: `${user.firstName} ${user.lastName}`.trim(),
       email: user.email,
       role: user.role.toLowerCase() as UserRole,
-      status: deriveStatus(user.id),
       avatarUrl: user.image || `https://picsum.photos/seed/${user.username}/128`,
       phone: user.phone ?? 'N/A',
       location: formatLocation(user) || 'Remote',

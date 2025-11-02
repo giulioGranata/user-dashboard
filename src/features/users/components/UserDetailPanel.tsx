@@ -30,7 +30,6 @@ export function UserDetailPanel({ user, isLoading }: UserDetailPanelProps) {
       />
       <div>
         <h3 className={styles.name}>{user.fullName}</h3>
-        <p className={styles.metaValue}>{user.status}</p>
       </div>
       <dl className={styles.metaList}>
         <div className={styles.metaItem}>

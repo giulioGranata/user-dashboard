@@ -57,7 +57,6 @@ function setupUserService(users = mockUsers) {
     fullName: `${user.firstName} ${user.lastName}`.trim(),
     email: user.email,
     role: user.role as 'admin' | 'moderator' | 'user',
-    status: 'Active' as const,
     avatarUrl: user.image || `https://picsum.photos/seed/${user.firstName.toLowerCase()}/128`,
     phone: 'N/A',
     location: 'Remote',
@@ -185,7 +184,6 @@ describe('UserDashboard', () => {
       fullName: `${user.firstName} ${user.lastName}`.trim(),
       email: user.email,
       role: user.role as 'admin' | 'moderator' | 'user',
-      status: 'Active' as const,
       avatarUrl:
         user.image || `https://picsum.photos/seed/${user.firstName.toLowerCase()}/128`,
       phone: 'N/A',

@@ -9,7 +9,6 @@ const mockUsers: UserSummary[] = [
     fullName: 'Ada Lovelace',
     email: 'ada@example.com',
     role: 'admin',
-    status: 'Active',
     avatarUrl: 'https://example.com/ada.png',
     phone: '123-456-7890',
     location: 'London'
@@ -19,7 +18,6 @@ const mockUsers: UserSummary[] = [
     fullName: 'Grace Hopper',
     email: 'grace@example.com',
     role: 'moderator',
-    status: 'Active',
     avatarUrl: 'https://example.com/grace.png',
     phone: '123-456-7891',
     location: 'New York'
@@ -29,7 +27,6 @@ const mockUsers: UserSummary[] = [
     fullName: 'Alan Turing',
     email: 'alan@example.com',
     role: 'user',
-    status: 'Inactive',
     avatarUrl: 'https://example.com/alan.png',
     phone: '123-456-7892',
     location: 'Manchester'
@@ -39,7 +36,6 @@ const mockUsers: UserSummary[] = [
     fullName: 'Ada Wong',
     email: 'ada.wong@example.com',
     role: 'moderator',
-    status: 'Active',
     avatarUrl: 'https://example.com/ada-wong.png',
     phone: '123-456-7893',
     location: 'Tokyo'
