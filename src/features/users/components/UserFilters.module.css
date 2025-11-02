@@ -28,6 +28,15 @@
   color: rgb(var(--slate-400) / 0.6);
 }
 
+/* Cursor pointer for the native clear button (X icon) in search inputs */
+.searchField input::-webkit-search-cancel-button {
+  cursor: pointer;
+}
+
+.searchField input::-ms-clear {
+  cursor: pointer;
+}
+
 .searchField svg {
   position: absolute;
   top: 50%;

@@ -53,7 +53,6 @@ export function UserFilters({ filters, onSearchChange, onRoleChange, total }: Us
   return (
     <div className={styles.filters}>
       <label className={styles.searchField}>
-        <span className="visuallyHidden">Search by name</span>
         <SearchIcon />
         <input
           type="search"
@@ -61,6 +60,7 @@ export function UserFilters({ filters, onSearchChange, onRoleChange, total }: Us
           placeholder="Search users"
           value={searchInput}
           onChange={(event) => setSearchInput(event.target.value)}
+          aria-label="Search users by name"
           aria-busy={isDebouncing}
         />
       </label>
