@@ -1,9 +1,10 @@
-import { SearchIcon, WarningIcon } from '@/components/icons';
+import { SearchIcon } from '@/components/icons';
 import { Spinner } from '@/components/users/Spinner';
 import { UserFiltersState } from '@/features/users/hooks/useUserFilters';
 import { useUsers } from '@/features/users/hooks/useUsers';
 import type { UserSummary } from '@/features/users/types/user';
 import { useEffect, useState } from 'react';
+import { ErrorState } from './ErrorState';
 import styles from './UserDashboard.module.css';
 import { UserDetailModal } from './UserDetailModal';
 import { UserFilters } from './UserFilters';
@@ -68,21 +69,11 @@ export function UserDashboard() {
         </div>
       )}
       {isError && (
-        <div role="alert" className={styles.errorState} aria-live="assertive">
-          <div className={styles.errorIcon} aria-hidden="true">
-            <WarningIcon width={48} height={48} />
-          </div>
-          <h3 className={styles.errorTitle}>We could not load the users</h3>
-          <p className={styles.errorMessage}>Please check your connection and try again.</p>
-          <button
-            type="button"
-            onClick={() => refetch()}
-            className={styles.retryButton}
-            aria-label="Retry loading users"
-          >
-            Retry
-          </button>
-        </div>
+        <ErrorState
+          title="We could not load the users"
+          message="Please check your connection and try again."
+          onRetry={() => refetch()}
+        />
       )}
       {!isLoading && !isError && filteredUsers.length === 0 && (
         <div className={styles.emptyState} role="status" aria-live="polite">
