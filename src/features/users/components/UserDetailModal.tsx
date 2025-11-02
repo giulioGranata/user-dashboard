@@ -1,10 +1,10 @@
-import { useEffect, useRef } from 'react';
-import { createPortal } from 'react-dom';
-import clsx from 'clsx';
 import { CloseIcon } from '@/components/icons';
-import { UserDetailPanel } from './UserDetailPanel';
 import type { UserSummary } from '@/features/users/types/user';
+import clsx from 'clsx';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import styles from './UserDetailModal.module.css';
+import { UserDetailPanel } from './UserDetailPanel';
 
 interface UserDetailModalProps {
   user: UserSummary;
@@ -15,6 +15,14 @@ export function UserDetailModal({ user, onClose }: UserDetailModalProps) {
   const modalRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const previousActiveElementRef = useRef<HTMLElement | null>(null);
+  const [isClosing, setIsClosing] = useState(false);
+
+  const handleClose = useCallback(() => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 300); // Match animation duration
+  }, [onClose]);
 
   useEffect(() => {
     // Save previous active element for focus restoration
@@ -22,14 +30,14 @@ export function UserDetailModal({ user, onClose }: UserDetailModalProps) {
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        onClose();
+        handleClose();
         return;
       }
 
       // Focus trap: Tab key handling
       if (event.key === 'Tab' && modalRef.current) {
         const focusableElements = modalRef.current.querySelectorAll<HTMLElement>(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
         );
         const firstElement = focusableElements[0];
         const lastElement = focusableElements[focusableElements.length - 1];
@@ -53,10 +61,10 @@ export function UserDetailModal({ user, onClose }: UserDetailModalProps) {
     window.addEventListener('keydown', handleKeyDown);
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    
+
     // Focus the close button on mount
     setTimeout(() => {
-    closeButtonRef.current?.focus();
+      closeButtonRef.current?.focus();
     }, 0);
 
     return () => {
@@ -65,51 +73,49 @@ export function UserDetailModal({ user, onClose }: UserDetailModalProps) {
       // Restore focus to previous active element
       previousActiveElementRef.current?.focus();
     };
-  }, [onClose]);
+  }, [handleClose]);
 
   if (typeof document === 'undefined') {
     return null;
   }
 
   return createPortal(
-    <div 
-      className={styles.backdrop} 
-      role="presentation" 
-      onClick={onClose}
+    <div
+      className={styles.backdrop}
+      role="presentation"
+      onClick={handleClose}
       onKeyDown={(e) => {
         // Close on Escape is handled in useEffect
         if (e.key === 'Escape') {
-          onClose();
+          handleClose();
         }
       }}
     >
       <div
         ref={modalRef}
-        className={styles.modal}
+        className={clsx(styles.modal, isClosing && styles.closing)}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="user-profile-title"
         aria-describedby="user-profile-details"
         onClick={(event) => event.stopPropagation()}
       >
         <div className={styles.header}>
-          <h3 id="user-profile-title" className={styles.title}>
-            {user.fullName}
-          </h3>
           <button
             ref={closeButtonRef}
             type="button"
             className={clsx('buttonGhost', styles.closeButton)}
-            onClick={onClose}
+            onClick={handleClose}
             aria-label="Close user details"
           >
             <CloseIcon width={20} height={20} />
             <span className="visuallyHidden">Close</span>
           </button>
         </div>
-        <UserDetailPanel user={user} isLoading={false} />
+        <div className={styles.content}>
+          <UserDetailPanel user={user} isLoading={false} />
+        </div>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }
