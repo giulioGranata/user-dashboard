@@ -55,7 +55,9 @@ export async function fetchUsers(params?: FetchUsersParams): Promise<{
     let users = response.data.users;
     let total = response.data.total;
 
-    // Apply client-side role filter if both search and role are present
+    /* Apply client-side role filter if both search and role are present
+    /* Note: DummyJSON API doesn't support combining search and role filter
+    in a single request, so we filter by role client-side */
     if (search && role) {
       users = users.filter((user) => user.role.toLowerCase() === role.toLowerCase());
       total = users.length;
