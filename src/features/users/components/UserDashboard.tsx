@@ -65,7 +65,6 @@ export function UserDashboard() {
       {isLoading && (
         <div className={styles.loadingState} role="status" aria-live="polite">
           <Spinner label="Loading users" />
-          <p className={styles.loadingText}>Fetching team members...</p>
         </div>
       )}
       {isError && (

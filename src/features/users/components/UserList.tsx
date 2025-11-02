@@ -1,8 +1,8 @@
-import useInfiniteScroll from 'react-infinite-scroll-hook';
-import { UserListItem } from './UserListItem';
 import { Spinner } from '@/components/users/Spinner';
 import type { UserSummary } from '@/features/users/types/user';
+import useInfiniteScroll from 'react-infinite-scroll-hook';
 import styles from './UserList.module.css';
+import { UserListItem } from './UserListItem';
 
 interface UserListProps {
   users: UserSummary[];
@@ -19,14 +19,14 @@ export function UserList({
   onSelectUser,
   isLoading,
   hasNextPage,
-  onLoadMore
+  onLoadMore,
 }: UserListProps) {
   const [sentryRef] = useInfiniteScroll({
     loading: isLoading,
     hasNextPage: hasNextPage ?? false,
     onLoadMore: onLoadMore ?? (() => {}),
     disabled: !hasNextPage || !onLoadMore,
-    rootMargin: '0px 0px 100px 0px'
+    rootMargin: '0px 0px 100px 0px',
   });
 
   return (

@@ -1,10 +1,10 @@
+import * as userService from '@/features/users/api/userService';
+import { UserDashboard } from '@/features/users/components/UserDashboard';
+import { renderWithProviders } from '@/test/test-utils';
 import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import axios from 'axios';
 import type { Mock } from 'vitest';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { renderWithProviders } from '@/test/test-utils';
-import * as userService from '@/features/users/api/userService';
-import { UserDashboard } from '@/features/users/components/UserDashboard';
 
 vi.mock('axios');
 vi.mock('@/features/users/api/userService');
@@ -46,8 +46,8 @@ function setupAxios(users = mockUsers) {
       users,
       total: users.length,
       skip: 0,
-      limit: 20
-    }
+      limit: 20,
+    },
   });
 }
 
@@ -66,7 +66,7 @@ function setupUserService(users = mockUsers) {
     users: normalizedUsers,
     total: normalizedUsers.length,
     skip: 0,
-    limit: 20
+    limit: 20,
   });
 }
 
@@ -132,7 +132,7 @@ describe('UserDashboard', () => {
           screen.queryByRole('button', { name: /view details for grace hopper/i }),
         ).not.toBeInTheDocument();
       },
-      { timeout: 500 }
+      { timeout: 500 },
     );
   });
 
@@ -149,7 +149,7 @@ describe('UserDashboard', () => {
       () => {
         expect(screen.getByText(/no users match your filters/i)).toBeInTheDocument();
       },
-      { timeout: 500 }
+      { timeout: 500 },
     );
   });
 
@@ -160,8 +160,7 @@ describe('UserDashboard', () => {
 
     renderWithProviders(<UserDashboard />);
 
-    expect(screen.getByText(/loading users/i)).toBeInTheDocument();
-    expect(screen.getByText(/fetching team members/i)).toBeInTheDocument();
+    expect(screen.getByText(/Loading users/i)).toBeInTheDocument();
   });
 
   it('shows error state when fetch fails', async () => {
@@ -184,8 +183,7 @@ describe('UserDashboard', () => {
       fullName: `${user.firstName} ${user.lastName}`.trim(),
       email: user.email,
       role: user.role as 'admin' | 'moderator' | 'user',
-      avatarUrl:
-        user.image || `https://picsum.photos/seed/${user.firstName.toLowerCase()}/128`,
+      avatarUrl: user.image || `https://picsum.photos/seed/${user.firstName.toLowerCase()}/128`,
       phone: 'N/A',
       location: 'Remote',
     }));
@@ -196,7 +194,7 @@ describe('UserDashboard', () => {
         users: normalizedUsers,
         total: normalizedUsers.length,
         skip: 0,
-        limit: 20
+        limit: 20,
       });
 
     renderWithProviders(<UserDashboard />);

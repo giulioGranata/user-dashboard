@@ -45,16 +45,6 @@
   min-height: 0;
 }
 
-.loadingText {
-  color: rgb(var(--slate-200) / 0.75);
-  margin: 0;
-  font-size: 0.95rem;
-}
-
-[data-theme='light'] .loadingText {
-  color: var(--color-text-tertiary);
-}
-
 .emptyState {
   text-align: center;
   padding: 3rem 2rem;
