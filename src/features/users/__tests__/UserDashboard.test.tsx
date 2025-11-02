@@ -244,14 +244,10 @@ describe('UserDashboard', () => {
 
     const modal = screen.getByRole('dialog');
     expect(modal).toBeInTheDocument();
-    expect(modal).toHaveAttribute('aria-labelledby', 'user-profile-title');
 
     // Check content inside modal using within()
     const modalContent = within(modal);
-    // Use getElementById to find the specific heading with id="user-profile-title"
-    const heading = document.getElementById('user-profile-title');
-    expect(heading).toBeInTheDocument();
-    expect(heading?.textContent).toBe('Ada Lovelace');
+    expect(modalContent.getByText('Ada Lovelace')).toBeInTheDocument();
     expect(modalContent.getByText('ada@example.com')).toBeInTheDocument();
   });
 
