@@ -1,4 +1,5 @@
 import type { UserSummary } from '@/features/users/types/user';
+import { UserStatusValues } from '@/features/users/types/user';
 import styles from './UserDetailPanel.module.css';
 
 interface UserDetailPanelProps {
@@ -21,6 +22,20 @@ export function UserDetailPanel({ user }: UserDetailPanelProps) {
         <div className={styles.metaItem}>
           <dt className={styles.metaLabel}>Role</dt>
           <dd className={styles.metaValue}>{user.role}</dd>
+        </div>
+        <div className={styles.metaItem}>
+          <dt className={styles.metaLabel}>Status</dt>
+          <dd className={styles.metaValue}>
+            <span
+              className={`${styles.status} ${
+                user.status === UserStatusValues.ACTIVE
+                  ? styles.statusActive
+                  : styles.statusInactive
+              }`}
+            >
+              {user.status}
+            </span>
+          </dd>
         </div>
         <div className={styles.metaItem}>
           <dt className={styles.metaLabel}>Email</dt>

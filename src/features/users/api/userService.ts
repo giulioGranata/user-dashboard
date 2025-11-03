@@ -1,5 +1,6 @@
 import { DEFAULT_LIMIT } from '@/features/users/constants';
 import type { UserResponse, UserRole, UserSummary } from '@/features/users/types/user';
+import { UserStatusValues } from '@/features/users/types/user';
 import axios from 'axios';
 
 const BASE_API_URL = 'https://dummyjson.com';
@@ -71,6 +72,7 @@ export async function fetchUsers(params?: FetchUsersParams): Promise<{
       avatarUrl: user.image || `https://picsum.photos/seed/${user.username}/128`,
       phone: user.phone ?? 'N/A',
       location: formatLocation(user) || 'Remote',
+      status: Math.random() > 0.5 ? UserStatusValues.ACTIVE : UserStatusValues.INACTIVE,
     }));
 
     return {

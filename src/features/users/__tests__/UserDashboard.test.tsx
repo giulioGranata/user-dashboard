@@ -1,5 +1,6 @@
 import * as userService from '@/features/users/api/userService';
 import { UserDashboard } from '@/features/users/components/UserDashboard';
+import { UserStatusValues } from '@/features/users/types/user';
 import { renderWithProviders } from '@/test/test-utils';
 import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import axios from 'axios';
@@ -60,6 +61,7 @@ function setupUserService(users = mockUsers) {
     avatarUrl: user.image || `https://picsum.photos/seed/${user.firstName.toLowerCase()}/128`,
     phone: 'N/A',
     location: 'Remote',
+    status: UserStatusValues.ACTIVE,
   }));
 
   vi.mocked(userService.fetchUsers).mockImplementation((params) => {
@@ -205,6 +207,7 @@ describe('UserDashboard', () => {
       avatarUrl: user.image || `https://picsum.photos/seed/${user.firstName.toLowerCase()}/128`,
       phone: 'N/A',
       location: 'Remote',
+      status: UserStatusValues.ACTIVE,
     }));
 
     vi.mocked(userService.fetchUsers)
@@ -249,6 +252,8 @@ describe('UserDashboard', () => {
     const modalContent = within(modal);
     expect(modalContent.getByText('Ada Lovelace')).toBeInTheDocument();
     expect(modalContent.getByText('ada@example.com')).toBeInTheDocument();
+    expect(modalContent.getByText('Status')).toBeInTheDocument();
+    expect(modalContent.getByText(UserStatusValues.ACTIVE)).toBeInTheDocument();
   });
 
   it('closes modal when close button is clicked', async () => {

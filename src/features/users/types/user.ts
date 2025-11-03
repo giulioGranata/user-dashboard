@@ -1,5 +1,12 @@
 export type UserRole = 'admin' | 'moderator' | 'user' | 'all';
 
+export type UserStatus = 'active' | 'inactive';
+
+export const UserStatusValues = {
+  ACTIVE: 'active' as const,
+  INACTIVE: 'inactive' as const,
+} as const;
+
 export interface UserSummary {
   id: number;
   fullName: string;
@@ -8,6 +15,7 @@ export interface UserSummary {
   avatarUrl: string;
   phone: string;
   location: string;
+  status: UserStatus;
 }
 
 export interface UserResponse {
