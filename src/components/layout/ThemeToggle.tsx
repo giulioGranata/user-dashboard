@@ -1,5 +1,5 @@
 import { MoonIcon, SunIcon } from '@/components/icons';
-import { useTheme } from '@/features/users/hooks/useTheme';
+import { useTheme } from '@/components/layout/hooks/useTheme';
 import styles from './ThemeToggle.module.css';
 
 export function ThemeToggle() {

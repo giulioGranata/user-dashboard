@@ -1,4 +1,4 @@
-import { Spinner } from '@/components/users/Spinner';
+import { Spinner } from '@/components/ui';
 import type { UserSummary } from '@/features/users/types/user';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import styles from './UserList.module.css';

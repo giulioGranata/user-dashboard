@@ -27,4 +27,3 @@ export function ErrorState({ title, message, onRetry, retryLabel = 'Retry' }: Er
     </div>
   );
 }
-

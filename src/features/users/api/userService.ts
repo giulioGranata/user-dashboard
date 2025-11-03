@@ -1,8 +1,8 @@
+import { DEFAULT_LIMIT } from '@/features/users/constants';
 import type { UserResponse, UserRole, UserSummary } from '@/features/users/types/user';
 import axios from 'axios';
 
 const BASE_API_URL = 'https://dummyjson.com';
-const DEFAULT_LIMIT = 20;
 
 export interface FetchUsersParams {
   skip?: number;

@@ -1,10 +1,8 @@
-import { Spinner } from '@/components/users/Spinner';
+import { EmptyState, ErrorState, Spinner } from '@/components/ui';
 import { useUsers } from '@/features/users/hooks/useUsers';
 import type { UserFiltersState } from '@/features/users/types/filters';
 import type { UserSummary } from '@/features/users/types/user';
 import { useEffect, useState } from 'react';
-import { EmptyState } from './EmptyState';
-import { ErrorState } from './ErrorState';
 import styles from './UserDashboard.module.css';
 import { UserDetailModal } from './UserDetailModal';
 import { UserFilters } from './UserFilters';
@@ -24,7 +22,6 @@ export function UserDashboard() {
   } = useUsers({ search: filters.search, role: filters.role });
 
   const [selectedUser, setSelectedUser] = useState<UserSummary | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     if (!selectedUser) {
@@ -35,17 +32,15 @@ export function UserDashboard() {
 
     if (!stillVisible) {
       setSelectedUser(null);
-      setIsModalOpen(false);
     }
   }, [users, selectedUser]);
 
   const handleSelectUser = (user: UserSummary) => {
     setSelectedUser(user);
-    setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false);
+    setSelectedUser(null);
   };
 
   return (
@@ -84,7 +79,7 @@ export function UserDashboard() {
           onLoadMore={fetchNextPage}
         />
       )}
-      {selectedUser && isModalOpen && (
+      {selectedUser && (
         <UserDetailModal user={selectedUser} onClose={handleCloseModal} />
       )}
     </section>

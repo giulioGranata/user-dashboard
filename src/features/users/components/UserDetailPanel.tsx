@@ -1,25 +1,11 @@
-import { Spinner } from '@/components/users/Spinner';
 import type { UserSummary } from '@/features/users/types/user';
 import styles from './UserDetailPanel.module.css';
 
 interface UserDetailPanelProps {
-  user: UserSummary | null;
-  isLoading: boolean;
+  user: UserSummary;
 }
 
-export function UserDetailPanel({ user, isLoading }: UserDetailPanelProps) {
-  if (isLoading) {
-    return <Spinner label="Loading profile" />;
-  }
-
-  if (!user) {
-    return (
-      <p className={styles.placeholder}>
-        Select an user to see their contact information and current availability.
-      </p>
-    );
-  }
-
+export function UserDetailPanel({ user }: UserDetailPanelProps) {
   return (
     <div className={styles.panel} id="user-profile-details">
       <img

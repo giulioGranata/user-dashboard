@@ -1,8 +1,7 @@
 import { fetchUsers } from '@/features/users/api/userService';
+import { DEFAULT_LIMIT } from '@/features/users/constants';
 import type { UserRole, UserSummary } from '@/features/users/types/user';
 import { useInfiniteQuery } from '@tanstack/react-query';
-
-const DEFAULT_LIMIT = 20;
 
 type Props = {
   search?: string;

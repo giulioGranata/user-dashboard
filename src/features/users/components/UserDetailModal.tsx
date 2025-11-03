@@ -75,21 +75,11 @@ export function UserDetailModal({ user, onClose }: UserDetailModalProps) {
     };
   }, [handleClose]);
 
-  if (typeof document === 'undefined') {
-    return null;
-  }
-
   return createPortal(
     <div
       className={styles.backdrop}
       role="presentation"
       onClick={handleClose}
-      onKeyDown={(e) => {
-        // Close on Escape is handled in useEffect
-        if (e.key === 'Escape') {
-          handleClose();
-        }
-      }}
     >
       <div
         ref={modalRef}
@@ -112,7 +102,7 @@ export function UserDetailModal({ user, onClose }: UserDetailModalProps) {
           </button>
         </div>
         <div className={styles.content}>
-          <UserDetailPanel user={user} isLoading={false} />
+          <UserDetailPanel user={user} />
         </div>
       </div>
     </div>,
