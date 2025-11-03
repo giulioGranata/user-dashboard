@@ -4,6 +4,8 @@
   gap: 1.25rem;
   align-items: center;
   text-align: center;
+  min-height: 0;
+  flex: 1;
 }
 
 .avatar {
@@ -30,7 +32,9 @@
   display: grid;
   gap: 0.75rem;
   overflow-y: auto;
-  max-height: calc(90vh - 12rem);
+  max-height: calc(90vh - 16rem);
+  min-height: 0;
+  flex-shrink: 1;
 }
 
 .metaItem {
