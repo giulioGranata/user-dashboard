@@ -44,7 +44,10 @@ export function UserDashboard() {
   };
 
   return (
-    <section className={styles.dashboard} aria-labelledby="user-directory">
+    <section className={styles.dashboard} aria-labelledby="user-dashboard">
+      <h2 id="user-dashboard" className="visuallyHidden">
+        User Dashboard
+      </h2>
       <UserFilters
         filters={filters}
         onSearchChange={(value) => setFilters({ ...filters, search: value })}
@@ -79,9 +82,7 @@ export function UserDashboard() {
           onLoadMore={fetchNextPage}
         />
       )}
-      {selectedUser && (
-        <UserDetailModal user={selectedUser} onClose={handleCloseModal} />
-      )}
+      {selectedUser && <UserDetailModal user={selectedUser} onClose={handleCloseModal} />}
     </section>
   );
 }

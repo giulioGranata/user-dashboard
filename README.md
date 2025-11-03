@@ -8,7 +8,7 @@ A responsive and accessible React + TypeScript dashboard for browsing users, fil
 
 - **User List Display** - Fetch and display users from API
 - **Filtering & Search** - Filter by role and search by name with debounced input
-- **User Detail View** - Modal with user details (profile picture, name, email, role, phone, location)
+- **User Detail View** - Modal with user details (profile picture, name, email, role, status, phone, location)
 - **Infinite Scroll** - Load users progressively as you scroll
 - **Light/Dark Theme** - Toggle between themes
 - **Loading & Error States** - Proper feedback for async operations
@@ -66,8 +66,8 @@ Run `npm run test:watch` for watch mode.
 ```
 src/
   components/
-    layout/              # Page shell
-    users/               # Shared user-centric UI (spinner)
+    layout/              # Page shell (Navbar, AppLayout, ThemeToggle)
+    ui/                  # Shared UI components (Spinner, ErrorState, EmptyState)
     icons/               # SVG icon components
   features/
     users/
@@ -76,6 +76,7 @@ src/
       hooks/             # Data fetching and filtering hooks
       types/             # TypeScript contracts
       __tests__/         # Unit tests
+      constants.ts       # Feature constants (DEFAULT_LIMIT)
   styles/                # Global styles
   test/                  # Testing utilities and setup
 ```
