@@ -66,8 +66,8 @@
 
   /* Scrollbar (light) */
   --scrollbar-bg: transparent; /* track background */
-  --scrollbar-thumb: rgba(100, 116, 139, 0.35); /* slate-500 at ~35% */
-  --scrollbar-thumb-hover: rgba(100, 116, 139, 0.55);
+  --scrollbar-thumb: rgb(var(--slate-500) / 0.35); /* using existing slate-500 */
+  --scrollbar-thumb-hover: rgb(var(--slate-500) / 0.55);
   --scrollbar-corner: transparent;
 }
 
@@ -90,8 +90,10 @@
 
   /* Scrollbar (dark) */
   --scrollbar-bg: transparent;
-  --scrollbar-thumb: rgba(148, 163, 184, 0.35); /* slate-400 at ~35% */
-  --scrollbar-thumb-hover: rgba(148, 163, 184, 0.6);
+  --scrollbar-thumb: var(--color-border); /* reusing existing border color (slate-400 at 35%) */
+  --scrollbar-thumb-hover: var(
+    --color-border-hover
+  ); /* reusing existing border-hover (slate-400 at 50%) */
   --scrollbar-corner: transparent;
 }
 
