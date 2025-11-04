@@ -1,0 +1,129 @@
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+  .filters {
+    gap: 1.25rem;
+  }
+}
+
+.searchField {
+  position: relative;
+}
+
+.searchField input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.75rem;
+  background: rgb(var(--slate-800) / 0.75);
+  border: 1px solid rgb(var(--slate-400) / 0.35);
+  border-radius: 0.875rem;
+  color: rgb(255 255 255);
+}
+
+.searchField input::placeholder {
+  color: rgb(var(--slate-400) / 0.6);
+}
+
+/* Cursor pointer for the native clear button (X icon) in search inputs */
+.searchField input::-webkit-search-cancel-button {
+  cursor: pointer;
+}
+
+.searchField input::-ms-clear {
+  cursor: pointer;
+}
+
+.searchField svg {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  color: rgb(var(--slate-400) / 0.7);
+  pointer-events: none;
+}
+
+[data-theme='light'] .searchField input {
+  background: rgb(255 255 255 / 0.95);
+  border-color: rgb(var(--slate-200) / 0.8);
+  color: var(--color-text-primary);
+}
+
+[data-theme='light'] .searchField input::placeholder {
+  color: rgb(var(--slate-600) / 0.6);
+}
+
+[data-theme='light'] .searchField svg {
+  color: rgb(var(--slate-500) / 0.6);
+}
+
+.roles {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+  .roles {
+    gap: 0.4rem;
+  }
+
+  .roleButton {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.875rem;
+  }
+}
+
+.roleButton {
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: rgb(var(--slate-400) / 0.2);
+  color: rgb(var(--slate-100));
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.roleButton:hover,
+.roleButton:focus-visible {
+  border-color: rgb(var(--blue-400) / 0.8);
+  outline: none;
+}
+
+.roleButtonActive {
+  background: linear-gradient(135deg, #38bdf8, #6366f1);
+  border-color: transparent;
+  color: rgb(255 255 255);
+  box-shadow: 0 12px 24px rgba(99, 102, 241, 0.35);
+}
+
+[data-theme='light'] .roleButton {
+  background: rgb(var(--slate-100) / 0.9);
+  color: rgb(var(--slate-600));
+  border-color: rgb(var(--slate-200) / 0.8);
+}
+
+[data-theme='light'] .roleButton:hover,
+[data-theme='light'] .roleButton:focus-visible {
+  background: rgb(var(--slate-100) / 0.95);
+  border-color: rgb(var(--blue-500) / 0.4);
+  color: rgb(var(--slate-700));
+}
+
+[data-theme='light'] .roleButtonActive {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: rgb(255 255 255);
+  box-shadow: 0 8px 16px rgba(59, 130, 246, 0.25);
+}
+
+.meta {
+  color: rgb(var(--slate-400) / 0.8);
+  font-size: 0.875rem;
+}
+
+[data-theme='light'] .meta {
+  color: rgb(var(--slate-600) / 0.8);
+}

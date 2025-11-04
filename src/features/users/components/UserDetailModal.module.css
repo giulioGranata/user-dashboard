@@ -1,0 +1,152 @@
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes modalSlideUp {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes modalSlideDown {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes modalSlideUpDesktop {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes modalSlideDownDesktop {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgb(var(--slate-900) / 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 1000;
+}
+
+[data-theme='light'] .backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  width: min(28rem, 100%);
+  max-height: 90vh;
+  overflow: visible;
+  background: rgb(var(--slate-800) / 0.95);
+  border-radius: 1rem;
+  border: 1px solid rgb(var(--slate-400) / 0.35);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: modalSlideUpDesktop 0.3s ease-out;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 auto;
+}
+
+.modal.closing {
+  animation: modalSlideDownDesktop 0.3s ease-out;
+}
+
+[data-theme='light'] .modal {
+  background: rgb(255 255 255 / 0.98);
+  border: 1px solid rgb(var(--slate-200) / 0.8);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+}
+
+@media (max-width: 640px) {
+  .modal {
+    width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    padding: 1.25rem 0;
+    gap: 1.25rem;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    animation: modalSlideUp 0.3s ease-out;
+  }
+
+  .modal.closing {
+    animation: modalSlideDown 0.3s ease-out;
+  }
+
+  .backdrop {
+    padding: 0;
+    align-items: flex-start;
+  }
+
+  .header {
+    padding: 0 1.25rem;
+  }
+
+  .content {
+    max-width: 100%;
+    padding: 0 1.25rem;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.closeButton {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.content {
+  max-width: 24rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  width: 100%;
+  min-height: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
